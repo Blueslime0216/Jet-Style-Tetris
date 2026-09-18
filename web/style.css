@@ -426,6 +426,7 @@ canvas {
   display: none;
 }
 .board-info {
+  flex-wrap: wrap;
   font:
     9px ui-monospace,
     monospace;
@@ -802,4 +803,17 @@ footer a {
   .boards {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+.clear-result {
+  color: #c7e985;
+  font-size: 11px;
+  line-height: 1.6;
+  width: 100%;
+  min-height: 18px;
+  font-weight: 600;
+}
+
+.clear-result {
+  flex: 0 0 100%;
 }

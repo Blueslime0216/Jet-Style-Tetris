@@ -12,7 +12,7 @@ A falling-block AI demo focused on **personality, not perfect play**. Describe a
 - Compile natural language into a strict style profile with Gemini; edit the same profile with sliders and presets.
 - Let Jev choose strategies, plans, and placements from engine-validated candidates.
 - Explore PC, TSD/TST, 6-3 and 9-0 stacking, openers, downstacking, and small showpiece builds.
-- Inspect real decision probabilities and save deterministic, API-free replays.
+- Watch actual movement and spin clears, inspect real decision probabilities, and save deterministic, API-free replays.
 
 The Rust game engine handles legality and simulation. Jev handles preferences. Absolute prohibitions remove candidates before selection. Provider failures use a visibly labeled fallback; they never produce invented model probabilities.
 
@@ -48,6 +48,6 @@ See [deployment instructions](docs/deployment.md) for all variables and limitati
 
 ## Scope
 
-This is an early demo: short lookahead, a curated static knowledge library, and basic opener routes. All-Spin, broad meme coverage, and advanced opponent-pattern recognition are future work. Reserved controls are marked unavailable. Gemini quota errors preserve the previous style.
+This is an demo with bounded lookahead and a curated static knowledge library. Openers have explicit setup/activation stages; unavailable routes recover through legal stacking. All-Spin, broad meme coverage, and advanced opponent-pattern recognition are future work. Reserved controls are marked unavailable. Gemini quota errors preserve the previous style.
 
 Built on the MIT-licensed [tetr_online](https://github.com/xiyan128/tetr_online) core, pinned as a submodule. Upstream audio and model assets are not used. See [third-party notices](THIRD_PARTY_NOTICES.md) and [knowledge sources](knowledge/README.md).

@@ -4,7 +4,7 @@
   "functions": {
     "api/server.js": {
       "maxDuration": 300,
-      "includeFiles": "{web/**,config/**,knowledge/raw/**,rust/engine-host/target/release/style-engine-host}"
+      "includeFiles": "{web/**,config/**,knowledge/raw/**,knowledge/runtime/**,rust/engine-host/target/release/style-engine-host}"
     }
   },
   "rewrites": [

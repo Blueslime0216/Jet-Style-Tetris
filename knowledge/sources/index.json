@@ -250,6 +250,76 @@
       "accessedAt": "2026-09-18",
       "provenanceNote": "Direct instructional definitions distinguish 9-0 edge well from 6-3 interior well; not a universal optimal-policy claim.",
       "reuseNote": "Short independently worded definitions only; images and full article not bundled."
+    },
+    {
+      "id": "hse-build-index",
+      "url": "https://hse30.tistory.com/73",
+      "title": "정원 — 테트리스 빌드 공략 모음",
+      "kind": "primary-instruction",
+      "author": "정원 (hse30)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "User-selected instructional reference. Runtime rules are independently implemented and engine-validated; no article text or images redistributed.",
+      "reuseNote": "Links and short original summaries only."
+    },
+    {
+      "id": "hse-tki",
+      "url": "https://hse30.tistory.com/65",
+      "title": "정원 — 개막 TSD",
+      "kind": "primary-instruction",
+      "author": "정원 (hse30)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "User-selected instructional reference. Runtime rules are independently implemented and engine-validated; no article text or images redistributed.",
+      "reuseNote": "Links and short original summaries only."
+    },
+    {
+      "id": "hse-stsd",
+      "url": "https://hse30.tistory.com/66",
+      "title": "정원 — STSD",
+      "kind": "primary-instruction",
+      "author": "정원 (hse30)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "User-selected instructional reference. Runtime rules are independently implemented and engine-validated; no article text or images redistributed.",
+      "reuseNote": "Links and short original summaries only."
+    },
+    {
+      "id": "hse-donation",
+      "url": "https://hse30.tistory.com/90",
+      "title": "정원 — 도네이팅",
+      "kind": "primary-instruction",
+      "author": "정원 (hse30)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "User-selected instructional reference. Runtime rules are independently implemented and engine-validated; no article text or images redistributed.",
+      "reuseNote": "Links and short original summaries only."
+    },
+    {
+      "id": "hse-hachispin",
+      "url": "https://hse30.tistory.com/91",
+      "title": "정원 — Hachispin",
+      "kind": "primary-instruction",
+      "author": "정원 (hse30)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "User-selected instructional reference. Runtime rules are independently implemented and engine-validated; no article text or images redistributed.",
+      "reuseNote": "Links and short original summaries only."
+    },
+    {
+      "id": "hse-albatross",
+      "url": "https://hse30.tistory.com/72",
+      "title": "정원 — Albatross",
+      "kind": "primary-instruction",
+      "author": "정원 (hse30)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "User-selected instructional reference. Runtime rules are independently implemented and engine-validated; no article text or images redistributed.",
+      "reuseNote": "Links and short original summaries only."
+    },
+    {
+      "id": "hse-dt-cannon",
+      "url": "https://hse30.tistory.com/64",
+      "title": "정원 — DT Cannon",
+      "kind": "primary-instruction",
+      "author": "정원 (hse30)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "User-selected instructional reference. Runtime rules are independently implemented and engine-validated; no article text or images redistributed.",
+      "reuseNote": "Links and short original summaries only."
     }
   ]
 }

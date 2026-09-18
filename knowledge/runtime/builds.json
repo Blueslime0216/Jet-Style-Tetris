@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "referenceIndex": "https://hse30.tistory.com/73",
+  "policy": {
+    "missingRoute": "recover-with-legal-stacking",
+    "activation": "line-clear-and-spin-events-required",
+    "unknownQueue": "never-assume-a-piece",
+    "mirror": "validate-through-engine",
+    "namedMidgame": "recognition-is-not-proof-of-execution"
+  },
+  "openers": [
+    {
+      "id": "tki",
+      "name": "TKI · 개막 TSD",
+      "templates": ["tki-diagram-0", "tki-diagram-1", "tki-diagram-2"],
+      "goal": "tsd",
+      "followups": ["tsd", "pc", "freestyle"],
+      "reference": "https://hse30.tistory.com/65",
+      "note": "Complete the first TSD before reporting activation. Future bags branch according to the revealed queue."
+    },
+    {
+      "id": "pco",
+      "name": "Perfect Clear Opener",
+      "templates": ["pco-diagram-0", "pco-diagram-1"],
+      "goal": "pc",
+      "followups": ["pc", "freestyle"],
+      "reference": "https://hse30.tistory.com/73",
+      "note": "The initial low shape is preparation; only an empty simulated board proves a PC."
+    },
+    {
+      "id": "dt-cannon",
+      "name": "DT Cannon",
+      "templates": ["dt-cannon-diagram-3", "dt-cannon-diagram-4"],
+      "goal": "tsd",
+      "followups": ["tst", "freestyle"],
+      "reference": "https://hse30.tistory.com/64",
+      "note": "Double then triple; abandon a blocked continuation instead of ending the match."
+    },
+    {
+      "id": "mko",
+      "name": "MKO",
+      "templates": ["mko-diagram-0", "mko-diagram-1"],
+      "goal": "tsd",
+      "followups": ["pc", "tsd", "freestyle"],
+      "reference": "https://four.lol/openers/mko/",
+      "note": "The first-bag base may need the next bag for its roof. Recompute after new pieces become visible."
+    },
+    {
+      "id": "albatross",
+      "name": "Albatross",
+      "templates": ["albatross-diagram-0"],
+      "goal": "tsd",
+      "followups": ["tst", "tsd", "freestyle"],
+      "reference": "https://hse30.tistory.com/72",
+      "note": "A floating TSD requires an executable descent and rotation, followed by a verified clear."
+    }
+  ],
+  "midgame": [
+    {
+      "id": "tsd",
+      "name": "T-spin double",
+      "goal": { "spin": "full", "lines": 2 },
+      "reference": "https://hse30.tistory.com/82",
+      "recognition": "engine reachability plus spin and line simulation"
+    },
+    {
+      "id": "tst",
+      "name": "T-spin triple",
+      "goal": { "spin": "full", "lines": 3 },
+      "reference": "https://hse30.tistory.com/99",
+      "recognition": "engine reachability plus spin and line simulation"
+    },
+    {
+      "id": "stsd",
+      "reference": "https://hse30.tistory.com/66",
+      "principle": "Detect occupied terrain, not a fixed identity of the blocks used to build it. Require two separately validated double clears.",
+      "status": "geometric-reference; generic T-spin search may find a continuation"
+    },
+    {
+      "id": "donation",
+      "reference": "https://hse30.tistory.com/90",
+      "principle": "A covered cell is intentional only when a reachable clear reopens it within a verified continuation.",
+      "status": "continuation-evaluated"
+    },
+    {
+      "id": "fractal",
+      "reference": "https://hse30.tistory.com/97",
+      "principle": "Preserve access to the lower slot; stacked-looking geometry alone is not a successful chain.",
+      "status": "geometric-reference"
+    }
+  ]
+}

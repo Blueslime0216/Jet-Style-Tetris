@@ -32,7 +32,7 @@ const labels = {
   freestyle: "프리스타일",
   forbidTSS: "T-spin Single 절대 금지",
   forbidMidgamePatterns: "중반 패턴 사용 금지",
-  openerOnly: "오프너만 사용",
+  openerOnly: "오프너 우선 · 실패 시 기본 쌓기",
   pcOnlyWhenPossible: "가능한 즉시 PC만 선택",
   openerKnowledge: "오프너 지식",
   midgameKnowledge: "중반 빌드 지식",
@@ -145,6 +145,14 @@ function showInspector() {
   if (!d) {
     text("plan-name", "첫 선택을 기다리는 중");
     $("candidates").replaceChildren();
+    for (const id of [
+      "plan-progress",
+      "decision-source",
+      "latency",
+      "candidate-count",
+      "decision-note",
+    ])
+      text(id, "");
     return;
   }
   text("plan-name", d.plan.name);
@@ -161,7 +169,10 @@ function showInspector() {
         : "Fallback · 규칙 기반",
   );
   text("latency", `${d.latencyMs} ms`);
-  text("candidate-count", `${d.candidateCount} 후보`);
+  text(
+    "candidate-count",
+    `${d.candidateCount}개 합법 · ${d.shortlistCount ?? d.options.length}개 검토`,
+  );
   $("candidates").replaceChildren();
   for (const option of d.options) {
     const row = document.createElement("div");
@@ -179,9 +190,11 @@ function showInspector() {
   }
   text(
     "decision-note",
-    d.source === "jev"
-      ? `실제 Jev 확률입니다.${d.styleEffects.tssFiltered ? " TSS 후보는 제거되었습니다." : ""}`
-      : `${d.fallbackReason === "key_missing" ? "Jev 키가 아직 없습니다." : "Jev 응답을 사용할 수 없습니다."} 유효 후보 중 fallback으로 선택했습니다. 표시할 모델 확률은 없습니다.`,
+    d.unresolved
+      ? d.unresolved
+      : d.source === "jev"
+        ? `실제 Jev 확률입니다.${d.styleEffects.tssFiltered ? " TSS 후보는 제거되었습니다." : ""}`
+        : `${d.fallbackReason === "key_missing" ? "Jev 키가 아직 없습니다." : "Jev 응답을 사용할 수 없습니다."} 유효 후보 중 fallback으로 선택했습니다. 표시할 모델 확률은 없습니다.`,
   );
 }
 function control(group, key, value) {
@@ -314,6 +327,22 @@ function setPlaying(value) {
   $("bot-mode").disabled = value;
   $("save-replay").disabled = !lastState;
 }
+function renderStats(statsBySeat) {
+  for (const seat of [0, 1]) {
+    const stats = statsBySeat?.[seat];
+    const action = stats?.lastClear;
+    const spin = action?.match(/TSpin.*lines: ([123])/);
+    const label = spin
+      ? `T-SPIN ${[null, "SINGLE", "DOUBLE", "TRIPLE"][Number(spin[1])]}`
+      : action;
+    text(
+      "clear-" + (seat === 0 ? "a" : "b"),
+      label
+        ? `${label} · ${stats.spins} SPINS · ${stats.attacks} ATK`
+        : "아직 클리어 없음",
+    );
+  }
+}
 function openSocket() {
   ws = new WebSocket(
     `${location.protocol === "https:" ? "wss:" : "ws:"}//${location.host}/play`,
@@ -321,18 +350,32 @@ function openSocket() {
   ws.addEventListener("open", () => {
     text("connection-state", "CONNECTED");
     $("start").disabled = false;
+    announce("준비되면 시작하세요.");
   });
   ws.addEventListener("close", () => {
     text("connection-state", "연결 끊김");
     setPlaying(false);
     $("start").disabled = true;
-    announce("연결이 종료되었습니다. 새로고침해 주세요.", true);
+    held.clear();
+    announce("연결이 종료되어 다시 연결하고 있습니다.", true);
+    setTimeout(async () => {
+      try {
+        const response = await fetch("/api/bootstrap", { cache: "no-store" });
+        if (!response.ok) throw Error("bootstrap");
+        const fresh = await response.json();
+        bootstrap = { ...bootstrap, ...fresh };
+        openSocket();
+      } catch {
+        announce("연결을 복구하지 못했습니다. 새로고침해 주세요.", true);
+      }
+    }, 1500);
   });
   ws.addEventListener("message", (event) => {
     const m = JSON.parse(event.data);
     if (m.type === "state" || m.type === "ended") {
       inspectors = m.inspectors;
       renderState(m.state, m.type !== "ended" && m.paused);
+      renderStats(m.stats);
       showInspector();
       text(
         "live-label",
@@ -380,6 +423,7 @@ $("random-seed").onclick = () => {
 };
 $("start").onclick = () => {
   clearInterval(replayTimer);
+  held.clear();
   const seed = Number($("seed").value);
   if (!Number.isInteger(seed) || seed < 0 || seed > 4294967295) {
     announce("시드는 0~4294967295 정수로 입력해 주세요.", true);
@@ -538,18 +582,53 @@ $("replay-file").onchange = async () => {
     }
     if (playing) transmit({ type: "stop" });
     clearInterval(replayTimer);
-    let i = 0;
+    let i = 0,
+      eventIndex = 0;
+    const events = r.events ?? [];
+    const replayStats = [0, 1].map(() => ({
+      spins: 0,
+      attacks: 0,
+      lastClear: null,
+    }));
+    inspectors = [null, null];
+    showInspector();
+    renderStats(replayStats);
     setPlaying(false);
     text("replay-status", "로컬 재생 · 외부 API 호출 없음");
     text("live-label", "REPLAY");
-    replayTimer = setInterval(() => {
-      if (i >= r.snapshots.length) {
-        clearInterval(replayTimer);
-        text("replay-status", "리플레이 재생 완료");
-        return;
-      }
-      renderState(r.snapshots[i++]);
-    }, 100);
+    replayTimer = setInterval(
+      () => {
+        if (i >= r.snapshots.length) {
+          clearInterval(replayTimer);
+          text("replay-status", "리플레이 재생 완료");
+          return;
+        }
+        const state = r.snapshots[i++];
+        while (
+          eventIndex < events.length &&
+          events[eventIndex].frame <= state.frame
+        ) {
+          const event = events[eventIndex++],
+            stats = replayStats[event.seat];
+          if (!stats) continue;
+          if (event.type === "attack") stats.attacks += event.lines;
+          if (
+            event.type === "score" &&
+            !/^(HardDrop|SoftDrop|NoClear)/.test(event.action)
+          ) {
+            stats.lastClear = event.action;
+            if (/TSpin.*lines: [123]/.test(event.action)) stats.spins++;
+          }
+        }
+        renderStats(replayStats);
+        renderState(state);
+      },
+      Math.max(
+        16,
+        (((r.snapshots[1]?.frame ?? 6) - (r.snapshots[0]?.frame ?? 0)) * 1000) /
+          60,
+      ),
+    );
   } catch (e) {
     text("replay-status", e.message);
   }

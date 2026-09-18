@@ -8,10 +8,16 @@ const hash = (x) =>
 let knowledgeHash = "unavailable";
 try {
   knowledgeHash = hash(
-    JSON.parse(
-      readFileSync(
-        new URL("../../knowledge/raw/fumen-fixtures.json", import.meta.url),
-        "utf8",
+    [
+      "raw/fumen-fixtures.json",
+      "runtime/builds.json",
+      "runtime/ordered-stages.json",
+    ].map((path) =>
+      JSON.parse(
+        readFileSync(
+          new URL("../../knowledge/" + path, import.meta.url),
+          "utf8",
+        ),
       ),
     ),
   );
@@ -25,6 +31,7 @@ export function publicDecision(d) {
     latencyMs: d.latencyMs,
     delayMs: d.delayMs,
     candidateCount: d.candidateCount,
+    shortlistCount: d.traces.at(-1).candidates.length,
     styleEffects: d.styleEffects,
     unresolved: d.unresolved,
     choice: d.candidate.id,
@@ -69,7 +76,16 @@ export class Match {
     this.pending = [false, false];
     this.ready = [null, null];
     this.inspector = [null, null];
-    this.inputs = {};
+    this.inputs = [];
+    this.eventHistory = [];
+    this.stats = [0, 1].map(() => ({
+      spins: 0,
+      tss: 0,
+      tsd: 0,
+      tst: 0,
+      attacks: 0,
+      lastClear: null,
+    }));
     this.paused = false;
     this.stopped = false;
     this.record = {
@@ -80,11 +96,12 @@ export class Match {
       styleHashes: this.styles.map(hash),
       ruleset: "guideline-v1",
       engineRevision: "0811902a0682a2fef06eebc28ca4f96a22c5147b",
-      appVersion: "0.1.0",
+      appVersion: "0.2.0",
       knowledgeHash,
       commands: [],
       decisions: [],
       snapshots: [],
+      events: [],
     };
     this.serial = Promise.resolve();
   }
@@ -104,17 +121,47 @@ export class Match {
   }
   setInput(action) {
     if (this.mode !== "human") return;
-    this.inputs[action] = true;
+    if (this.inputs.length < 256) this.inputs.push(action);
   }
   async tick() {
-    const inputs = [this.mode === "human" ? this.inputs : {}, {}];
-    this.inputs = {};
+    const action = this.mode === "human" ? this.inputs.shift() : null;
+    const inputs = [action ? { [action]: true } : {}, {}];
     const cmd = { op: "tick", inputs };
     const out = await this.engine.send(cmd);
     if (this.stopped) return;
     this.record.commands.push(cmd);
     this.view = out.state;
-    this.lastEvents = out.events;
+    this.lastEvents = [...(this.lastEvents ?? []), ...out.events];
+    for (const event of out.events) {
+      if (event.type === "executionComplete")
+        this.agents[event.seat].committed();
+      if (event.type === "executionInvalidated")
+        this.agents[event.seat].plan = null;
+      if (event.type === "attack")
+        this.stats[event.seat].attacks += event.lines;
+      if (
+        event.type === "score" &&
+        !/^(HardDrop|SoftDrop|NoClear)/.test(event.action)
+      ) {
+        const stats = this.stats[event.seat];
+        stats.lastClear = event.action;
+        const spin = event.action.match(/TSpin.*lines: ([123])/);
+        if (spin) {
+          stats.spins++;
+          stats[[null, "tss", "tsd", "tst"][Number(spin[1])]]++;
+        }
+      }
+      if (
+        ["lock", "attack", "executionInvalidated"].includes(event.type) ||
+        (event.type === "score" &&
+          !/^(HardDrop|SoftDrop|NoClear)/.test(event.action))
+      )
+        this.eventHistory.push({ ...event, frame: this.view.frame });
+    }
+    this.record.events.push(
+      ...this.eventHistory.filter((e) => e.frame === this.view.frame),
+    );
+    this.eventHistory = this.eventHistory.slice(-80);
     for (const seat of this.mode === "human" ? [1] : [0, 1]) {
       const ready = this.ready[seat];
       if (ready && this.view.frame >= ready.executeFrame) {
@@ -122,7 +169,7 @@ export class Match {
         // Never execute a decision on a replacement piece.
         if (ready.lock === this.view.locks[seat]) {
           const cmd = {
-            op: "place",
+            op: "prepare",
             seat,
             lock: ready.lock,
             candidate: ready.decision.candidate.id,
@@ -133,8 +180,13 @@ export class Match {
             this.record.commands.push(cmd);
             this.view = result.state;
             this.lastEvents.push(...result.events);
-            this.agents[seat].committed();
-          } catch {
+          } catch (error) {
+            this.eventHistory.push({
+              type: "replan",
+              seat,
+              frame: this.view.frame,
+              reason: error.message,
+            });
             this.agents[seat].plan = null;
           }
         }
@@ -142,6 +194,8 @@ export class Match {
       if (
         !this.pending[seat] &&
         !this.ready[seat] &&
+        !this.view.executing?.[seat] &&
+        this.view.frame >= (this.retryAfter?.[seat] ?? 0) &&
         !this.view.seats[seat].gameOver
       ) {
         this.pending[seat] = true;
@@ -158,7 +212,14 @@ export class Match {
             )
               return;
             if (!d) {
-              this.end("no_allowed_move");
+              this.retryAfter ??= [0, 0];
+              this.retryAfter[seat] = this.view.frame + 12;
+              this.eventHistory.push({
+                type: "replan",
+                seat,
+                frame: this.view.frame,
+                reason: "제약을 유지하며 새 배치를 찾는 중",
+              });
               return;
             }
             this.inspector[seat] = publicDecision(d);
@@ -195,17 +256,27 @@ export class Match {
                 this.view.frame + Math.ceil((d.delayMs / 1000) * 60),
             };
           })
-          .catch(() => {
-            if (!this.stopped) this.end("decision_error");
+          .catch((error) => {
+            if (this.stopped) return;
+            this.agents[seat].plan = null;
+            this.retryAfter ??= [0, 0];
+            this.retryAfter[seat] = this.view.frame + 12;
+            this.eventHistory.push({
+              type: "replan",
+              seat,
+              frame: this.view.frame,
+              reason: error.message,
+            });
           })
           .finally(() => {
             this.pending[seat] = false;
           });
       }
     }
-    if (this.view.frame % 6 === 0) {
-      this.record.snapshots.push(this.view);
+    if (this.view.frame % 2 === 0) {
+      if (this.view.frame % 6 === 0) this.record.snapshots.push(this.view);
       this.onUpdate(this.message());
+      this.lastEvents = [];
     }
     if (this.view.seats.some((s) => s.gameOver)) this.end("top_out");
     else if (this.view.frame >= this.maxFrames) this.end("time_limit");
@@ -217,6 +288,8 @@ export class Match {
       inspectors: this.inspector,
       paused: this.paused,
       events: this.lastEvents ?? [],
+      eventHistory: this.eventHistory,
+      stats: this.stats,
       mode: this.mode,
       seed: this.seed,
     };
@@ -256,13 +329,20 @@ export async function verifyReplay(record) {
   try {
     let state = await engine.send({ op: "init", seed: record.seed });
     for (const cmd of record.commands) {
-      if (!["tick", "place"].includes(cmd.op))
+      if (!["tick", "place", "prepare"].includes(cmd.op))
         throw new Error("Invalid replay command");
       const out = await engine.send(cmd);
       state = out.state;
     }
     return {
-      matches: hash(state) === record.finalHash,
+      matches:
+        hash(state) === record.finalHash ||
+        (record.appVersion === "0.1.0" &&
+          hash(
+            Object.fromEntries(
+              Object.entries(state).filter(([k]) => k !== "executing"),
+            ),
+          ) === record.finalHash),
       state,
       hash: hash(state),
     };

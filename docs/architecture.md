@@ -20,13 +20,15 @@ Node server: sessions · provider proxy · quotas · match lifecycle
 
 ## Decisions
 
-Jev chooses from finite engine-validated options. A plan persists until completion, invalidation, or a garbage spike. Hard constraints are applied before selection. Source-backed opener templates and short PC/TSD/TST searches create concrete routes; 6-3 and 9-0 stacking use separate well targets. Showmanship includes two authored, executable masks. Reserved advanced pattern-reading and named meme controls are disabled.
+Jev chooses from finite engine-validated options. A plan persists until completion, invalidation, or a garbage spike. Hard constraints are applied before selection. Source-backed opener templates include activation goals and staged continuations. Every live placement uses per-cell descent/SRS reachability; per-root beam search evaluates 2–4 known pieces before Jev receives a bounded shortlist. Future search remains approximate. PC/TSD/TST continuations create concrete routes; 6-3 and 9-0 stacking use separate well targets. Showmanship includes two authored, executable masks. Reserved advanced pattern-reading and named meme controls are disabled.
+
+Missing or invalidated opener routes recover with legal stacking instead of ending the match. Bot paths execute one input per frame and verify the final landing cells. Human key pulses are queued in order.
 
 Fallback evaluates legal candidates only and is visibly labeled. It does not fabricate model probabilities. Model latency and seeded execution delays are separate; speed does not increase strategic knowledge. The current short search is not an exhaustive solver.
 
 ## Replay and privacy
 
-A replay records the seed, engine revision, styles, decisions, engine commands, visual snapshots, and final-state hash. `verifyReplay()` reruns commands without provider calls and compares the final hash. The browser viewer plays saved snapshots; it does not invoke the engine verifier itself.
+A replay records the seed, engine revision, styles, decisions, engine commands, visual snapshots, actual clear events, and final-state hash. `verifyReplay()` reruns commands without provider calls and compares the final hash. The browser viewer plays saved snapshots; it does not invoke the engine verifier itself.
 
 Opponent observations omit hidden queues, RNG state, styles, plans, and pending decisions. Replays can contain style text and API decision data; they are downloaded deliberately and are not publicly stored. Keys are never recorded. Operator logs contain startup/errors, not full prompts.
 

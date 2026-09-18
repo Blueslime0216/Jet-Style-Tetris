@@ -227,6 +227,7 @@ export function humanDelay(style, random, difficulty = 0) {
   return Math.round(
     100 +
       (1 - style.execution.speed) * 1000 +
-      style.execution.hesitation * (150 + random() * 500) * (1 + difficulty),
+      style.execution.hesitation * (150 + random() * 500) * (1 + difficulty) +
+      (1 - style.execution.consistency) * random() * 300,
   );
 }

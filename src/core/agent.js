@@ -6,6 +6,12 @@ import {
   humanDelay,
 } from "./style.js";
 let templates = [];
+const buildLibrary = JSON.parse(
+  readFileSync(
+    new URL("../../knowledge/runtime/builds.json", import.meta.url),
+    "utf8",
+  ),
+);
 const memeRegistry = JSON.parse(
   readFileSync(new URL("../../config/memes.json", import.meta.url), "utf8"),
 );
@@ -22,22 +28,20 @@ try {
       "utf8",
     ),
   );
-  const selected = [
-    "tki-diagram-0",
-    "pco-diagram-0",
-    "dt-cannon-diagram-3",
-    "dt-cannon-diagram-4",
-    "mko-diagram-0",
-    "albatross-diagram-0",
-  ];
+  const selected = buildLibrary.openers.flatMap((b) => b.templates);
   for (const diagram of fixtures.diagrams) {
     if (!selected.includes(diagram.id)) continue;
     const pieces = diagram.pages[0]?.coloredPlacements;
     if (!pieces?.length) continue;
+    const build = buildLibrary.openers.find((b) =>
+      b.templates.includes(diagram.id),
+    );
     templates.push({
       id: diagram.id,
-      name: diagram.patternId.toUpperCase(),
+      name: build.name,
+      followups: build.followups,
       strategy: "opener",
+      goal: build.goal,
       source: diagram.sourceUrl,
       pieces: pieces.map((p) => ({
         type: p.type,
@@ -46,8 +50,28 @@ try {
     });
   }
 } catch {}
+templates.push(
+  ...JSON.parse(
+    readFileSync(
+      new URL("../../knowledge/runtime/ordered-stages.json", import.meta.url),
+      "utf8",
+    ),
+  ).stages,
+);
+templates.push(
+  ...templates.map((t) => ({
+    ...t,
+    id: t.id + "-mirror",
+    base: t.base?.map(([x, y]) => [9 - x, y]),
+    pieces: t.pieces.map((p) => ({
+      type: { S: "Z", Z: "S", J: "L", L: "J" }[p.type] ?? p.type,
+      cells: p.cells.map(([x, y]) => [9 - x, y]),
+    })),
+  })),
+);
 export const openerTemplates = templates;
 export function fallbackScore(c, style, plan) {
+  if (c.future) return c.future.score;
   const p = style.strategyPreferences,
     r = style.risk;
   let score =
@@ -113,6 +137,7 @@ export class StyleAgent {
   setStyle(style) {
     this.style = style;
     this.plan = null;
+    this.followupGoal = null;
   }
   async select(state, candidates, layer, rank) {
     try {
@@ -134,10 +159,11 @@ export class StyleAgent {
     const self = view.seats[seat],
       style = this.style;
     let candidates = allowedCandidates(
-      await engine.send({ op: "candidates", seat }),
+      await engine.send({ op: "search", seat, style }),
       style,
     );
     if (!candidates.length) return null;
+    const legalCount = candidates.length;
     const observation = {
       self: {
         board: self.board,
@@ -153,6 +179,13 @@ export class StyleAgent {
       style,
     };
     const traces = [];
+    this.recovery = null;
+    if (this.plan?.strategy === "opener" && this.plan.step >= this.plan.horizon)
+      this.followupGoal =
+        this.plan.phase === "activation"
+          ? this.plan.followups?.[0]
+          : this.plan.goal;
+
     const next = this.plan?.route?.[this.plan.step];
     let reason = !this.plan ? "initial" : null;
     if (next && !candidates.some((c) => c.id === next.id))
@@ -165,10 +198,15 @@ export class StyleAgent {
       let plans = [];
       if (
         style.knowledge.openerKnowledge > 0.2 &&
-        self.lines === 0 &&
-        view.locks[seat] < 8
+        (view.locks[seat] < 16 || self.board.length === 0)
       ) {
-        plans = await engine.send({ op: "plans", seat, templates });
+        plans = await engine.send({
+          op: "plans",
+          seat,
+          templates: templates.filter(
+            (t) => !(style.hardConstraints.forbidTSS && t.requiresTSS),
+          ),
+        });
       }
       if (
         style.showmanship.enabled &&
@@ -192,14 +230,29 @@ export class StyleAgent {
             });
         }
       }
-      const goalPlans =
-        style.knowledge.lookahead > 0.1
-          ? await engine.send({
-              op: "goals",
-              seat,
-              depth: style.knowledge.lookahead > 0.7 ? 3 : 2,
-            })
-          : [];
+      const goalPlans = [];
+      const seenGoals = new Set();
+      for (const c of candidates) {
+        const route = c.continuation ?? [];
+        const index = route.findIndex(
+          (p) => p.pc || (p.spin !== "none" && p.lines >= 2),
+        );
+        if (index < 0) continue;
+        const finish = route[index];
+        const strategy = finish.pc ? "pc" : finish.lines === 3 ? "tst" : "tsd";
+        const key = `${strategy}:${route[0].id}`;
+        if (seenGoals.has(key)) continue;
+        seenGoals.add(key);
+        goalPlans.push({
+          id: key,
+          name: finish.pc
+            ? "Perfect clear"
+            : "Midgame T-spin " + (finish.lines === 3 ? "triple" : "double"),
+          strategy,
+          route: route.slice(0, index + 1),
+          evaluation: c.future,
+        });
+      }
       plans.push(
         ...goalPlans.filter(
           (p) =>
@@ -251,7 +304,11 @@ export class StyleAgent {
           strategies.push({
             id: "tsd",
             name: "T-spin double",
-            weight: style.strategyPreferences.tSpinDouble + 1,
+            weight:
+              style.strategyPreferences.tSpinDouble +
+              style.strategyPreferences.midgameSetup +
+              1 +
+              (this.followupGoal === "tsd" ? 1 : 0),
           });
         if (
           candidates.some((c) => c.spin !== "none" && c.lines === 3) ||
@@ -260,7 +317,11 @@ export class StyleAgent {
           strategies.push({
             id: "tst",
             name: "T-spin triple",
-            weight: style.strategyPreferences.tSpinTriple + 1,
+            weight:
+              style.strategyPreferences.tSpinTriple +
+              style.strategyPreferences.midgameSetup +
+              1 +
+              (this.followupGoal === "tst" ? 1 : 0),
           });
       }
       if (plans.some((p) => p.strategy === "opener"))
@@ -287,11 +348,18 @@ export class StyleAgent {
           name: "Showpiece build",
           weight: 1.5 + style.showmanship.memeBuildPreference,
         });
-      // Opener-only is a real restriction. If no route exists, concede rather than invent an opener.
+      // A missing library route is not a game rule violation. Opener-only
+      // excludes named midgame builds, while recovery stacking remains legal.
       const options = style.hardConstraints.openerOnly
-        ? strategies.filter((s) => s.id === "opener")
+        ? strategies.filter((s) =>
+            ["opener", "freestyle", "downstack", "pc"].includes(s.id),
+          )
         : strategies;
-      if (!options.length) return null;
+      if (
+        style.hardConstraints.openerOnly &&
+        !plans.some((p) => p.strategy === "opener")
+      )
+        this.recovery = "오프너 경로 없음 · 허용된 생존 배치로 계속";
       const decision = await this.select(
         observation,
         options,
@@ -320,12 +388,27 @@ export class StyleAgent {
           observation,
           matchingPlans.map((p) => ({
             id: p.id,
-            name: p.name,
+            name: p.name + (p.phase === "preparation" ? " · 준비" : " · 발동"),
             steps: p.route.length,
             source: p.source,
+            phase: p.phase ?? "activation",
+            outcome: {
+              lines: p.route.reduce((n, c) => n + c.lines, 0),
+              attack: p.route.reduce((n, c) => n + c.attack, 0),
+              holes: p.route.at(-1).holes,
+              height: p.route.at(-1).height,
+            },
+            score: p.evaluation?.score,
+            continuation: p.route.map((c) => ({
+              piece: c.piece,
+              x: c.x,
+              rotation: c.rotation,
+              lines: c.lines,
+              spin: c.spin,
+            })),
           })),
           "plan",
-          () => 0,
+          (p) => (p.outcome?.lines ?? 0) * 5 - (p.outcome?.holes ?? 0),
         );
         traces.push({
           ...pd,
@@ -341,20 +424,37 @@ export class StyleAgent {
       candidates = candidates.filter((c) => c.id === target.id);
       if (!candidates.length) {
         this.plan = null;
-        return null;
+        candidates = allowedCandidates(
+          await engine.send({ op: "search", seat, style }),
+          style,
+        );
+        this.plan = {
+          id: "recovery",
+          name: "Survival recovery",
+          strategy: "freestyle",
+          step: 0,
+          horizon: 1,
+          route: null,
+        };
+        this.recovery = "계획이 바뀌어 재탐색했습니다.";
       }
     }
-    const total = candidates.length;
-    // Choice has a 255 limit. Keep deterministically ranked candidates only when required.
-    if (candidates.length > 255)
-      candidates = [...candidates]
-        .sort(
-          (a, b) =>
-            fallbackScore(b, style, this.plan) -
-            fallbackScore(a, style, this.plan),
+    if (!this.plan?.route && candidates.length) {
+      const best = Math.max(
+        ...candidates.map((c) => c.future?.score ?? fallbackScore(c, style)),
+      );
+      const tolerance =
+        1.2 +
+        2 * style.risk.greed +
+        3 * style.execution.intentionalImperfection;
+      candidates = candidates
+        .filter(
+          (c) =>
+            (c.future?.score ?? fallbackScore(c, style)) >= best - tolerance,
         )
-        .slice(0, 255);
-    const compact = candidates.map(({ after, ...c }) => c);
+        .slice(0, 12);
+    }
+    const compact = candidates.map(({ after, continuation, ...c }) => c);
     const decision = await this.select(
       {
         ...observation,
@@ -380,20 +480,21 @@ export class StyleAgent {
         name: this.plan.name,
         step: this.plan.step + 1,
         total: this.plan.horizon,
+        phase: this.plan.phase ?? "placement",
       },
       traces,
       source: decision.source,
       fallbackReason: decision.fallbackReason,
       latencyMs: traces.reduce((s, t) => s + t.latencyMs, 0),
       delayMs: humanDelay(style, this.random, uncertainty),
-      candidateCount: total,
+      candidateCount: legalCount,
       styleEffects: {
         tssFiltered: style.hardConstraints.forbidTSS,
         advancedPatterns:
           style.knowledge.midgameKnowledge > 0.2 &&
           !style.hardConstraints.forbidMidgamePatterns,
       },
-      unresolved: null,
+      unresolved: this.recovery ?? null,
     };
   }
   committed() {
