@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "four-tki",
+      "url": "https://four.lol/openers/tki/",
+      "title": "tki — FOUR original instructional diagrams",
+      "kind": "primary-instruction",
+      "author": "davdav1233 and cosin307 (site authors; individual examples may credit other players)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Directly extracted published instructional Fumen. This does not claim the site author invented the technique. Only selected compact geometry and independently written summaries are retained.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "four-pco",
+      "url": "https://four.lol/perfect-clears/opener/",
+      "title": "pco — FOUR original instructional diagrams",
+      "kind": "primary-instruction",
+      "author": "davdav1233 and cosin307 (site authors; individual examples may credit other players)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Directly extracted published instructional Fumen. This does not claim the site author invented the technique. Only selected compact geometry and independently written summaries are retained.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "four-dt-cannon",
+      "url": "https://four.lol/methods/dt-cannon/",
+      "title": "dt-cannon — FOUR original instructional diagrams",
+      "kind": "primary-instruction",
+      "author": "davdav1233 and cosin307 (site authors; individual examples may credit other players)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Directly extracted published instructional Fumen. This does not claim the site author invented the technique. Only selected compact geometry and independently written summaries are retained.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "four-albatross",
+      "url": "https://four.lol/openers/albatross/",
+      "title": "albatross — FOUR original instructional diagrams",
+      "kind": "primary-instruction",
+      "author": "davdav1233 and cosin307 (site authors; individual examples may credit other players)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Directly extracted published instructional Fumen. This does not claim the site author invented the technique. Only selected compact geometry and independently written summaries are retained.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "four-mko",
+      "url": "https://four.lol/openers/mko/",
+      "title": "mko — FOUR original instructional diagrams",
+      "kind": "primary-instruction",
+      "author": "davdav1233 and cosin307 (site authors; individual examples may credit other players)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Directly extracted published instructional Fumen. This does not claim the site author invented the technique. Only selected compact geometry and independently written summaries are retained.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "four-hachispin",
+      "url": "https://four.lol/openers/hachispin/",
+      "title": "hachispin — FOUR original instructional diagrams",
+      "kind": "primary-instruction",
+      "author": "davdav1233 and cosin307 (site authors; individual examples may credit other players)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Directly extracted published instructional Fumen. This does not claim the site author invented the technique. Only selected compact geometry and independently written summaries are retained.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "four-sdpc",
+      "url": "https://four.lol/openers/sd-pc/",
+      "title": "sdpc — FOUR original instructional diagrams",
+      "kind": "primary-instruction",
+      "author": "davdav1233 and cosin307 (site authors; individual examples may credit other players)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Directly extracted published instructional Fumen. This does not claim the site author invented the technique. Only selected compact geometry and independently written summaries are retained.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "four-stsd",
+      "url": "https://four.lol/methods/stsd/",
+      "title": "stsd — FOUR original instructional diagrams",
+      "kind": "primary-instruction",
+      "author": "davdav1233 and cosin307 (site authors; individual examples may credit other players)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Directly extracted published instructional Fumen. This does not claim the site author invented the technique. Only selected compact geometry and independently written summaries are retained.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "four-fractal",
+      "url": "https://four.lol/methods/fractal/",
+      "title": "fractal — FOUR original instructional diagrams",
+      "kind": "primary-instruction",
+      "author": "davdav1233 and cosin307 (site authors; individual examples may credit other players)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Directly extracted published instructional Fumen. This does not claim the site author invented the technique. Only selected compact geometry and independently written summaries are retained.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "four-lst",
+      "url": "https://four.lol/stacking/lst/",
+      "title": "lst — FOUR original instructional diagrams",
+      "kind": "primary-instruction",
+      "author": "davdav1233 and cosin307 (site authors; individual examples may credit other players)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Directly extracted published instructional Fumen. This does not claim the site author invented the technique. Only selected compact geometry and independently written summaries are retained.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "four-c-spin",
+      "url": "https://four.lol/methods/triple-double/",
+      "title": "c-spin — FOUR original instructional diagrams",
+      "kind": "primary-instruction",
+      "author": "davdav1233 and cosin307 (site authors; individual examples may credit other players)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Directly extracted published instructional Fumen. This does not claim the site author invented the technique. Only selected compact geometry and independently written summaries are retained.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "hachispin-original",
+      "url": "https://fumen.zui.jp/?v115@vhQCKYYAlvs2AWDEfET4BBClvs2A2pDfEXUb9AmlQA?AXtBzrB8hBZkBlnB6tQcAUNuSA1dE6BxXHDBQTOSA1d0ACD?YHDBQpD6A5dQAATeB0gB3cBOaBtkBXiBUqBTjBzfF8ywH8w?wAeI8AeE8ZfdrBLgzhffCrBRhi0Ieg0QeONBHhB8EeA8BeA?8DeG8CeE8JedqBvhEqqBXnBToBxkBOrBHhB8EeA8BeA8DeG?8CeE8JexfBvhETjBXiBOmBFqB0qBHhB8EeA8BeA8DeG8CeE?8JeTjBvhEXiByvBlqB0pBxvBHhB8EeA8BeA8DeG8CeE8Jeb?jBvhE3qBxlBFiB0kBmqB1gzhGeilR4RpB8Aeglg0R4A8RpA?8Ceg0G8Aeh0E8JeAAA",
+      "title": "Hachispin creator Fumen",
+      "kind": "primary-creator-diagram",
+      "author": "hachispin",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Original creator Fumen linked by FOUR Hachispin references; direct Fumen encoding extracted from that link.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "four-dpc",
+      "url": "https://four.lol/perfect-clears/dpc/",
+      "title": "dpc — FOUR original instructional diagrams",
+      "kind": "primary-instruction",
+      "author": "davdav1233 and cosin307 (site authors; individual examples may credit other players)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Directly extracted published instructional Fumen. This does not claim the site author invented the technique. Only selected compact geometry and independently written summaries are retained.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "four-kaidan",
+      "url": "https://four.lol/methods/kaidan/",
+      "title": "kaidan — FOUR original instructional diagrams",
+      "kind": "primary-instruction",
+      "author": "davdav1233 and cosin307 (site authors; individual examples may credit other players)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Directly extracted published instructional Fumen. This does not claim the site author invented the technique. Only selected compact geometry and independently written summaries are retained.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "four-stmb",
+      "url": "https://four.lol/methods/stmb/",
+      "title": "stmb — FOUR original instructional diagrams",
+      "kind": "primary-instruction",
+      "author": "davdav1233 and cosin307 (site authors; individual examples may credit other players)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Directly extracted published instructional Fumen. This does not claim the site author invented the technique. Only selected compact geometry and independently written summaries are retained.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "four-infinite-tst",
+      "url": "https://four.lol/methods/tspin-triple/",
+      "title": "infinite-tst — FOUR original instructional diagrams",
+      "kind": "primary-instruction",
+      "author": "davdav1233 and cosin307 (site authors; individual examples may credit other players)",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Directly extracted published instructional Fumen. This does not claim the site author invented the technique. Only selected compact geometry and independently written summaries are retained.",
+      "reuseNote": "Original page and diagrams remain with their authors. No article text, screenshots, or site code is bundled."
+    },
+    {
+      "id": "mechanical-heart-guide",
+      "url": "https://hse30.tistory.com/1251",
+      "title": "Mechanical Heart",
+      "kind": "primary-instruction",
+      "author": "정원 / hse30",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Independent instructional diagrams and execution descriptions; not a claim of original invention. Rates and exclusivity claims are not imported.",
+      "reuseNote": "Paraphrased research only; no full source copy."
+    },
+    {
+      "id": "washing-machine-demo",
+      "url": "https://www.reddit.com/r/Tetris/comments/p0utpx/",
+      "title": "washing machine opener idk",
+      "kind": "primary-demonstration",
+      "author": "Reddit original submitter",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Original submitted demonstration; does not establish one canonical opener, cross-game legality, or a success rate.",
+      "reuseNote": "Paraphrased research only; no full source copy."
+    },
+    {
+      "id": "among-us-demo",
+      "url": "https://www.youtube.com/watch?v=kbYAeAZRaaE",
+      "title": "Tetris Among Us Opener into a Perfect Clear",
+      "kind": "primary-demonstration",
+      "author": "Summerburst",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Uploader describes their own TETR.IO game. Demonstration metadata supports a visual meme build, not a universal guaranteed PC route.",
+      "reuseNote": "Paraphrased research only; no full source copy."
+    },
+    {
+      "id": "basic-tspins",
+      "url": "https://howtotetris.com/basic-t-spins/",
+      "title": "Basic T-spins",
+      "kind": "primary-instruction",
+      "author": "Galactoid",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Author instructional definitions and diagrams; attack values are intentionally not generalized across games.",
+      "reuseNote": "Paraphrased research only; no full source copy."
+    },
+    {
+      "id": "stacking-guide",
+      "url": "https://howtotetris.com/the-whys-of-stacking/",
+      "title": "The Whys of Stacking",
+      "kind": "primary-instruction",
+      "author": "Galactoid",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Author explains stack balance and 2/3/4-column stacking. Does not define the requested exact label 4-3 stacking.",
+      "reuseNote": "Paraphrased research only; no full source copy."
+    },
+    {
+      "id": "tetrio-developer",
+      "url": "https://blog.osk.sh/",
+      "title": "osk developer blog",
+      "kind": "primary-developer",
+      "author": "osk and contributors",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Documents TETR.IO variants. Historical statements are not a frozen current ruleset or an attack table.",
+      "reuseNote": "Paraphrased research only; no full source copy."
+    },
+    {
+      "id": "solution-finder",
+      "url": "https://github.com/knewjade/solution-finder",
+      "title": "solution-finder",
+      "kind": "primary-software",
+      "author": "knewjade",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Offline solver implementation; solver results are not claimed unless actually run.",
+      "reuseNote": "Paraphrased research only; no full source copy."
+    },
+    {
+      "id": "fumen-decoder",
+      "url": "https://github.com/knewjade/tetris-fumen",
+      "title": "tetris-fumen",
+      "kind": "primary-software",
+      "author": "knewjade",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Local decoding used package 1.1.3. Decoder checks geometry, not SRS movement reachability.",
+      "reuseNote": "Paraphrased research only; no full source copy."
+    },
+    {
+      "id": "tec-stacking-guide",
+      "url": "https://www.tetriseffect.game/beginners-community-guide/",
+      "title": "Beginner’s Community Guide — Stacking Strategies",
+      "kind": "primary-instruction",
+      "author": "Tetris Effect: Connected community guide contributors; published on official game website",
+      "accessedAt": "2026-09-18",
+      "provenanceNote": "Direct instructional definitions distinguish 9-0 edge well from 6-3 interior well; not a universal optimal-policy claim.",
+      "reuseNote": "Short independently worded definitions only; images and full article not bundled."
+    }
+  ]
+}

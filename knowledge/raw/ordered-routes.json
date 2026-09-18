@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "routes": [
+    {
+      "id": "hachispin-source-first-two-bags",
+      "patternId": "hachispin",
+      "sourceDiagramId": "hachispin-original",
+      "sourceId": "hachispin-original",
+      "queue": "LJSOZITLIOZSJT",
+      "initialRowsBottomUp": [],
+      "operations": [
+        {
+          "type": "L",
+          "rotation": "reverse",
+          "x": 2,
+          "y": 1,
+          "expectedLines": 0
+        },
+        {
+          "type": "J",
+          "rotation": "reverse",
+          "x": 3,
+          "y": 2,
+          "expectedLines": 0
+        },
+        {
+          "type": "S",
+          "rotation": "spawn",
+          "x": 8,
+          "y": 0,
+          "expectedLines": 0
+        },
+        {
+          "type": "O",
+          "rotation": "spawn",
+          "x": 5,
+          "y": 0,
+          "expectedLines": 0
+        },
+        {
+          "type": "Z",
+          "rotation": "left",
+          "x": 6,
+          "y": 3,
+          "expectedLines": 0
+        },
+        {
+          "type": "I",
+          "rotation": "left",
+          "x": 0,
+          "y": 1,
+          "expectedLines": 0
+        },
+        {
+          "type": "T",
+          "rotation": "reverse",
+          "x": 7,
+          "y": 2,
+          "expectedLines": 1
+        },
+        {
+          "type": "L",
+          "rotation": "left",
+          "x": 9,
+          "y": 1,
+          "expectedLines": 0
+        },
+        {
+          "type": "I",
+          "rotation": "left",
+          "x": 7,
+          "y": 3,
+          "expectedLines": 0
+        },
+        {
+          "type": "O",
+          "rotation": "spawn",
+          "x": 8,
+          "y": 3,
+          "expectedLines": 0
+        },
+        {
+          "type": "Z",
+          "rotation": "spawn",
+          "x": 3,
+          "y": 2,
+          "expectedLines": 0
+        },
+        {
+          "type": "S",
+          "rotation": "spawn",
+          "x": 5,
+          "y": 3,
+          "expectedLines": 0
+        },
+        {
+          "type": "J",
+          "rotation": "right",
+          "x": 0,
+          "y": 4,
+          "expectedLines": 0
+        },
+        {
+          "type": "T",
+          "rotation": "right",
+          "x": 1,
+          "y": 2,
+          "expectedLines": 3
+        }
+      ],
+      "expectedFinalRowsBottomUp": [
+        "IL___OOSSL",
+        "J____SSIOO",
+        "JJ_____I__"
+      ],
+      "verification": {
+        "geometry": "decoder-can-lock-and-continuous-occupancy-pass",
+        "spawnReachability": "not-tested",
+        "spinClassification": "not-tested",
+        "queueHold": "no-hold-single-known-sequence",
+        "runtimeEnabled": false
+      },
+      "notes": "Exact first 14 creator operations, not an enumeration of compatible queues. Clear counts are verified geometrically; qualifying T-spins still require target-engine input paths."
+    }
+  ]
+}

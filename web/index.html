@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="당신이 설명한 성격으로 플레이하는 상대."
+    />
+    <meta property="og:title" content="Style Play" />
+    <link rel="icon" href="/icon.svg" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>Style Play</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="wordmark" href="/" id="brand">STYLE / PLAY</a
+      ><span class="project-note">플레이 스타일 실험실</span>
+      <div class="connection">
+        <span id="connection-state">연결 중</span
+        ><span id="provider-state">준비 중</span>
+      </div>
+    </header>
+    <main>
+      <div class="intro">
+        <div>
+          <h1>어떤 상대와<br />플레이할까요?</h1>
+          <p>취향을 정하면, 선택이 달라집니다.</p>
+        </div>
+        <div class="mode-switch" role="group" aria-label="대전 모드">
+          <button id="human-mode" class="selected" aria-pressed="true">
+            직접 대전</button
+          ><button id="bot-mode" aria-pressed="false">봇 vs 봇</button>
+        </div>
+      </div>
+      <div class="workspace">
+        <aside class="stylist">
+          <div class="section-heading">
+            <h2>플레이 스타일</h2>
+            <span id="editing-seat">상대 B</span>
+          </div>
+          <div class="seat-tabs" id="seat-tabs" hidden>
+            <button data-seat="0">봇 A</button
+            ><button data-seat="1" class="selected">봇 B</button>
+          </div>
+          <label for="prompt">상대의 성격을 설명해 주세요</label
+          ><textarea
+            id="prompt"
+            maxlength="2000"
+            rows="4"
+            placeholder="퍼클을 집착적으로 노리고, 위험해도 포기하지 마. TSS는 절대 하지 말고 조금 느리게 플레이해."
+          ></textarea
+          ><button id="apply" class="secondary wide">
+            스타일 해석하기 <span>↗</span>
+          </button>
+          <p id="compile-status" class="help" role="status">
+            자연어는 Gemini로 해석합니다.
+          </p>
+          <div class="preset-row">
+            <label for="preset">프리셋으로 시작</label
+            ><select id="preset"></select>
+          </div>
+          <div class="profile-title">
+            <span class="mini-label">CURRENT STYLE</span>
+            <h3 id="style-label">Balanced</h3>
+          </div>
+          <div id="controls"></div>
+          <p id="profile-notice" class="help"></p>
+        </aside>
+        <section class="arena" aria-label="대전 보드">
+          <div class="arena-toolbar">
+            <div class="seed-control">
+              <label for="seed">SEED</label
+              ><input
+                id="seed"
+                type="number"
+                value="82719451"
+                min="0"
+                max="4294967295"
+              /><button id="random-seed" aria-label="새 시드">↻</button>
+            </div>
+            <span id="match-clock">00:00</span>
+          </div>
+          <div class="boards">
+            <article class="seat">
+              <div class="seat-heading">
+                <span class="seat-letter">A</span>
+                <div>
+                  <h2 id="name-a">YOU</h2>
+                  <p id="label-a">직접 플레이</p>
+                </div>
+                <span class="score" id="lines-a">0 <small>LINES</small></span>
+              </div>
+              <div class="board-frame">
+                <canvas
+                  id="board-a"
+                  tabindex="0"
+                  width="264"
+                  height="528"
+                  aria-label="플레이어 A 보드"
+                ></canvas>
+                <div class="board-overlay" id="overlay-a">READY</div>
+              </div>
+              <div class="board-info">
+                <span id="hold-a">HOLD ·</span><span id="next-a">NEXT ·</span>
+              </div>
+              <div class="incoming">
+                <span>INCOMING</span><b id="garbage-a">0</b>
+              </div>
+            </article>
+            <article class="seat">
+              <div class="seat-heading">
+                <span class="seat-letter accent">B</span>
+                <div>
+                  <h2 id="name-b">JEV</h2>
+                  <p id="label-b">Balanced</p>
+                </div>
+                <span class="score" id="lines-b">0 <small>LINES</small></span>
+              </div>
+              <div class="board-frame">
+                <canvas
+                  id="board-b"
+                  width="264"
+                  height="528"
+                  aria-label="플레이어 B 보드"
+                ></canvas>
+                <div class="board-overlay" id="overlay-b">READY</div>
+              </div>
+              <div class="board-info">
+                <span id="hold-b">HOLD ·</span><span id="next-b">NEXT ·</span>
+              </div>
+              <div class="incoming">
+                <span>INCOMING</span><b id="garbage-b">0</b>
+              </div>
+            </article>
+          </div>
+          <div class="match-actions">
+            <button id="start" class="primary">대전 시작 <span>↗</span></button
+            ><button id="pause" disabled aria-label="일시 정지">Ⅱ</button
+            ><button id="stop" disabled>종료</button>
+          </div>
+          <p id="match-status" role="status">
+            준비되면 시작하세요. 같은 시드로 다시 플레이할 수 있습니다.
+          </p>
+          <div class="key-guide">
+            <span><kbd>←</kbd><kbd>→</kbd> 이동</span
+            ><span><kbd>↑</kbd><kbd>Z</kbd> 회전</span
+            ><span><kbd>Space</kbd> 드롭</span
+            ><span><kbd>Shift</kbd> 홀드</span>
+          </div>
+          <div class="touch-controls">
+            <button data-action="left" aria-label="왼쪽">←</button
+            ><button data-action="cw" aria-label="회전">↻</button
+            ><button data-action="right" aria-label="오른쪽">→</button
+            ><button data-action="hold">홀드</button
+            ><button data-action="drop">드롭</button>
+          </div>
+        </section>
+        <aside class="inspector">
+          <div class="section-heading">
+            <h2>Decision Inspector</h2>
+            <span class="live-label" id="live-label">대기</span>
+          </div>
+          <div class="inspect-tabs" id="inspect-tabs">
+            <button data-inspect="0">A</button
+            ><button data-inspect="1" class="selected">B</button>
+          </div>
+          <span class="mini-label">CURRENT PLAN</span>
+          <h3 id="plan-name">첫 선택을 기다리는 중</h3>
+          <p id="plan-progress" class="help">
+            게임이 시작되면 현재 계획과 후보가 표시됩니다.
+          </p>
+          <div class="decision-source">
+            <span id="decision-source">준비</span><span id="latency">· ms</span>
+          </div>
+          <div class="section-heading small">
+            <h4>배치 후보</h4>
+            <span id="candidate-count">0</span>
+          </div>
+          <div id="candidates" class="candidate-list">
+            <p class="empty">아직 선택된 배치가 없습니다.</p>
+          </div>
+          <div class="inspector-note" id="decision-note">
+            Jev가 받은 유효 후보와 반환한 확률을 보여줍니다.
+          </div>
+          <div class="inspector-bottom">
+            <h4>재현 가능한 경기</h4>
+            <p class="help">결정을 기록하고, API 호출 없이 다시 봅니다.</p>
+            <button id="save-replay" class="secondary wide" disabled>
+              경기 저장 ↓</button
+            ><label class="file-button" for="replay-file">리플레이 열기</label
+            ><input
+              id="replay-file"
+              type="file"
+              accept=".json,application/json"
+              hidden
+            />
+            <p id="replay-status" class="help" role="status"></p>
+          </div>
+        </aside>
+      </div>
+    </main>
+    <footer>
+      <span id="footer-text">Independent falling-block research demo</span
+      ><span>Guideline · SRS · 7-bag <a href="/credits.html">Credits</a></span>
+    </footer>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

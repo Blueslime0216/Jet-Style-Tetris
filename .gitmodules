@@ -1,0 +1,3 @@
+[submodule "vendor/tetr_online"]
+	path = vendor/tetr_online
+	url = https://github.com/xiyan128/tetr_online.git

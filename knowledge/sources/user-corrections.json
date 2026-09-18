@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "corrections": [
+    {
+      "date": "2026-09-18",
+      "source": "Project terminology clarification",
+      "supersedes": "An earlier 4-3 naming error",
+      "resolution": "Use 6-3 for interior-well stacking; distinguish 9-0/0-9 for an edge well. Preserve historical source documents; current catalog now reflects corrected intent.",
+      "profileMapping": {
+        "sixThreeStacking": "interior-well preference",
+        "defaultInteriorWellColumn": 6,
+        "defaultEdgeWellColumn": 9
+      }
+    }
+  ]
+}

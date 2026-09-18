@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "researchedAt": "2026-09-18",
+  "diagrams": [
+    {
+      "id": "tki-diagram-0",
+      "patternId": "tki",
+      "sourceId": "four-tki",
+      "sourceUrl": "https://four.lol/openers/tki/",
+      "sourceLocator": "Fumen component, zero-based index 0",
+      "fumen": "v115@Ehg0BeglBeBtAeQ4i0glCeBtR4RphlAezhQ4RpJeAg?H"
+    },
+    {
+      "id": "tki-diagram-1",
+      "patternId": "tki",
+      "sourceId": "four-tki",
+      "sourceUrl": "https://four.lol/openers/tki/",
+      "sourceLocator": "Fumen component, zero-based index 1",
+      "fumen": "v115@HhglBeBtAeQ4CeglCeBtR4RphlAezhQ4RpJeAgHShy?wHewwQeAAAvhAAAA"
+    },
+    {
+      "id": "tki-diagram-2",
+      "patternId": "tki",
+      "sourceId": "four-tki",
+      "sourceUrl": "https://four.lol/openers/tki/",
+      "sourceLocator": "Fumen component, zero-based index 2",
+      "fumen": "v115@vhERymRwBUNfUmBAAA"
+    },
+    {
+      "id": "pco-diagram-0",
+      "patternId": "pco",
+      "sourceId": "four-pco",
+      "sourceUrl": "https://four.lol/perfect-clears/opener/",
+      "sourceLocator": "Fumen component, zero-based index 0",
+      "fumen": "v115@9gilEeR4glRpDeR4wwg0RpCeBtxwi0DeBtwwJeAgH"
+    },
+    {
+      "id": "pco-diagram-1",
+      "patternId": "pco",
+      "sourceId": "four-pco",
+      "sourceUrl": "https://four.lol/perfect-clears/opener/",
+      "sourceLocator": "Fumen component, zero-based index 1",
+      "fumen": "v115@9gilwhDeR4glRpwhCeR4wwg0RpwhBeBtxwi0whCeBt?wwJeAgH"
+    },
+    {
+      "id": "dt-cannon-diagram-0",
+      "patternId": "dt-cannon",
+      "sourceId": "four-dt-cannon",
+      "sourceUrl": "https://four.lol/methods/dt-cannon/",
+      "sourceLocator": "Fumen component, zero-based index 0",
+      "fumen": "v115@hgH8CeI8AeH8BeH8CeH8AeI8AeG8JeAgH"
+    },
+    {
+      "id": "dt-cannon-diagram-3",
+      "patternId": "dt-cannon",
+      "sourceId": "four-dt-cannon",
+      "sourceUrl": "https://four.lol/methods/dt-cannon/",
+      "sourceLocator": "Fumen component, zero-based index 3",
+      "fumen": "v115@3gwwHeywwhGeR4whBtAeRpAeR4glwhg0BtRpAeilwh?i0JeAgH"
+    },
+    {
+      "id": "dt-cannon-diagram-4",
+      "patternId": "dt-cannon",
+      "sourceId": "four-dt-cannon",
+      "sourceUrl": "https://four.lol/methods/dt-cannon/",
+      "sourceLocator": "Fumen component, zero-based index 4",
+      "fumen": "v115@3gwwHeywwhGeAtg0whglQ4AeRpAeBtg0whglR4RpAe?Ath0whhlQ4JeAgH"
+    },
+    {
+      "id": "dt-cannon-diagram-6",
+      "patternId": "dt-cannon",
+      "sourceId": "four-dt-cannon",
+      "sourceUrl": "https://four.lol/methods/dt-cannon/",
+      "sourceLocator": "Fumen component, zero-based index 6",
+      "fumen": "v115@vhGSymSwBXNfXmBVSfVhBAAA"
+    },
+    {
+      "id": "albatross-diagram-0",
+      "patternId": "albatross",
+      "sourceId": "four-albatross",
+      "sourceUrl": "https://four.lol/openers/albatross/",
+      "sourceLocator": "Fumen component, zero-based index 0",
+      "fumen": "v115@AhBtDewhQ4CeBti0whR4AeRpilg0whAeQ4AeRpglCe?whJeAgH"
+    },
+    {
+      "id": "albatross-diagram-1",
+      "patternId": "albatross",
+      "sourceId": "four-albatross",
+      "sourceUrl": "https://four.lol/openers/albatross/",
+      "sourceLocator": "Fumen component, zero-based index 1",
+      "fumen": "v115@AhBtDewhQ4CeBti0whR4AeRpilg0whAeQ4AeRpglCe?whJeAgHIhywHewwaeAAAUhBtDeQ4AewhAexwg0CeQ4JeAAA?"
+    },
+    {
+      "id": "mko-diagram-0",
+      "patternId": "mko",
+      "sourceId": "four-mko",
+      "sourceUrl": "https://four.lol/openers/mko/",
+      "sourceLocator": "Fumen component, zero-based index 0",
+      "fumen": "v115@9gQ4EeAtBewhR4CeBtBewhg0Q4CeAtglRpwhi0Aeil?RpwhJeAgH"
+    },
+    {
+      "id": "mko-diagram-1",
+      "patternId": "mko",
+      "sourceId": "four-mko",
+      "sourceUrl": "https://four.lol/openers/mko/",
+      "sourceLocator": "Fumen component, zero-based index 1",
+      "fumen": "v115@9gQ4EeAtwhBeR4CeBtwhBeg0Q4CeAtglwhRpi0Aeil?whRpJeAgH"
+    },
+    {
+      "id": "hachispin-diagram-1",
+      "patternId": "hachispin",
+      "sourceId": "four-hachispin",
+      "sourceUrl": "https://four.lol/openers/hachispin/",
+      "sourceLocator": "Fumen component, zero-based index 1",
+      "fumen": "v115@5gAtCewhDeBtCewhAei0AtDewhilg0RpAeR4whglCe?RpR4KeAgHNhywHewwVeAAAvhAAAA"
+    },
+    {
+      "id": "sdpc-diagram-0",
+      "patternId": "sdpc",
+      "sourceId": "four-sdpc",
+      "sourceUrl": "https://four.lol/openers/sd-pc/",
+      "sourceLocator": "Fumen component, zero-based index 0",
+      "fumen": "v115@0gAtHeBtGewhAtFehlwhRpAeR4i0glwhRpR4Ceg0gl?whJeAgHIhywHewwaeAgH+gAtHeBtGeQ4AtSpCeh0Q4xwxhC?eglg0Q4JeAgH"
+    },
+    {
+      "id": "stsd-diagram-0",
+      "patternId": "stsd",
+      "sourceId": "four-stsd",
+      "sourceUrl": "https://four.lol/methods/stsd/",
+      "sourceLocator": "Fumen component, zero-based index 0",
+      "fumen": "v115@1gH8CeI8AeH8BeH8BeG8JeAglJhwwHexwIewwQeAAA?vhAAAe"
+    },
+    {
+      "id": "stsd-diagram-1",
+      "patternId": "stsd",
+      "sourceId": "four-stsd",
+      "sourceUrl": "https://four.lol/methods/stsd/",
+      "sourceLocator": "Fumen component, zero-based index 1",
+      "fumen": "v115@KhG8CeG8CeG8JeAgHHhh0Heg0Ieg0SeAAA1gBtIeBt?seAAA"
+    },
+    {
+      "id": "fractal-diagram-0",
+      "patternId": "fractal",
+      "sourceId": "four-fractal",
+      "sourceUrl": "https://four.lol/methods/fractal/",
+      "sourceLocator": "Fumen component, zero-based index 0",
+      "fumen": "v115@zgC8GeB8CeH8AeH8CeH8AeF8JeAgH/gywHewwjeAAA?vhAAAA"
+    },
+    {
+      "id": "fractal-diagram-1",
+      "patternId": "fractal",
+      "sourceId": "four-fractal",
+      "sourceUrl": "https://four.lol/methods/fractal/",
+      "sourceLocator": "Fumen component, zero-based index 1",
+      "fumen": "v115@tgH8CeH8AeH8BeH8CeH8AeF8JeAgH"
+    },
+    {
+      "id": "lst-diagram-0",
+      "patternId": "lst",
+      "sourceId": "four-lst",
+      "sourceUrl": "https://four.lol/stacking/lst/",
+      "sourceLocator": "Fumen component, zero-based index 0",
+      "fumen": "v115@ZgF8DeF8CeG8Q4ywF8R4wwG8glQ4AeG8glywF8hlww?G8JeAgH"
+    },
+    {
+      "id": "lst-diagram-2",
+      "patternId": "lst",
+      "sourceId": "four-lst",
+      "sourceUrl": "https://four.lol/stacking/lst/",
+      "sourceLocator": "Fumen component, zero-based index 2",
+      "fumen": "v115@YgG8CeG8Q4ywF8R4wwG8AeQ4AeG8Q4ywF8R4wwG8Ae?Q4AeG8JeAgH"
+    },
+    {
+      "id": "c-spin-diagram-17",
+      "patternId": "c-spin",
+      "sourceId": "four-c-spin",
+      "sourceUrl": "https://four.lol/methods/triple-double/",
+      "sourceLocator": "Fumen component, zero-based index 17, C-Spin section",
+      "fumen": "v115@ThR4F8CeQ4F8JeAgHThxhIewhPeAAApgh0Heg0Ieg0?AeBtFeglBeBtEeglIehlReAAA"
+    },
+    {
+      "id": "hachispin-original",
+      "patternId": "hachispin",
+      "sourceId": "hachispin-original",
+      "sourceUrl": "https://fumen.zui.jp/?v115@vhQCKYYAlvs2AWDEfET4BBClvs2A2pDfEXUb9AmlQA?AXtBzrB8hBZkBlnB6tQcAUNuSA1dE6BxXHDBQTOSA1d0ACD?YHDBQpD6A5dQAATeB0gB3cBOaBtkBXiBUqBTjBzfF8ywH8w?wAeI8AeE8ZfdrBLgzhffCrBRhi0Ieg0QeONBHhB8EeA8BeA?8DeG8CeE8JedqBvhEqqBXnBToBxkBOrBHhB8EeA8BeA8DeG?8CeE8JexfBvhETjBXiBOmBFqB0qBHhB8EeA8BeA8DeG8CeE?8JeTjBvhEXiByvBlqB0pBxvBHhB8EeA8BeA8DeG8CeE8Jeb?jBvhE3qBxlBFiB0kBmqB1gzhGeilR4RpB8Aeglg0R4A8RpA?8Ceg0G8Aeh0E8JeAAA",
+      "sourceLocator": "hachispin original fumen linked by FOUR",
+      "fumen": "v115@vhQCKYYAlvs2AWDEfET4BBClvs2A2pDfEXUb9AmlQA?AXtBzrB8hBZkBlnB6tQcAUNuSA1dE6BxXHDBQTOSA1d0ACD?YHDBQpD6A5dQAATeB0gB3cBOaBtkBXiBUqBTjBzfF8ywH8w?wAeI8AeE8ZfdrBLgzhffCrBRhi0Ieg0QeONBHhB8EeA8BeA?8DeG8CeE8JedqBvhEqqBXnBToBxkBOrBHhB8EeA8BeA8DeG?8CeE8JexfBvhETjBXiBOmBFqB0qBHhB8EeA8BeA8DeG8CeE?8JeTjBvhEXiByvBlqB0pBxvBHhB8EeA8BeA8DeG8CeE8Jeb?jBvhE3qBxlBFiB0kBmqB1gzhGeilR4RpB8Aeglg0R4A8RpA?8Ceg0G8Aeh0E8JeAAA"
+    },
+    {
+      "id": "dpc-diagram-0",
+      "patternId": "dpc",
+      "sourceId": "four-dpc",
+      "sourceUrl": "https://four.lol/perfect-clears/dpc/",
+      "sourceLocator": "Fumen component, zero-based index 0",
+      "fumen": "v115@0gAtHeBtGewhAtCehlRpg0whB8AeR4glRpg0whB8R4?AeglAeh0whJeAgWKAPq78AQPUABDHBAAIhywHewwaeAAAIh?AtHeBtGeQ4BexhAeg0AehlQ4JeAAPOAPqDfETYk2ARYcRAy?fAAA"
+    },
+    {
+      "id": "dpc-diagram-1",
+      "patternId": "dpc",
+      "sourceId": "four-dpc",
+      "sourceUrl": "https://four.lol/perfect-clears/dpc/",
+      "sourceLocator": "Fumen component, zero-based index 1",
+      "fumen": "v115@9gilywzhglA8RpwwAth0R4B8RpBtg0R4E8AtA8g0C8?JeAg0HAzfrgCpOkBAAhCPAeh0QpDewhglxhxSDeglwhQagW?wSEeglAeQaMeAg0HAq+aFDT+jBAAhh0QpwwQaAPQaBeBthW?QagWRaBehWQLAPBewhEegWAewhMeAg0HAUePFDPNkBA"
+    },
+    {
+      "id": "kaidan-diagram-0",
+      "patternId": "kaidan",
+      "sourceId": "four-kaidan",
+      "sourceUrl": "https://four.lol/methods/kaidan/",
+      "sourceLocator": "Fumen component, zero-based index 0",
+      "fumen": "v115@9gF8DeG8CeH8BeI8KeAgH2gzhLeAtHeBtHeAtUeAAA?"
+    },
+    {
+      "id": "stmb-diagram-0",
+      "patternId": "stmb",
+      "sourceId": "four-stmb",
+      "sourceUrl": "https://four.lol/methods/stmb/",
+      "sourceLocator": "Fumen component, zero-based index 0",
+      "fumen": "v115@ngQ4IeR4D8BtCeQ4E8BtAeG8CeG8CeG8CeB8JeAgH5?gywHewwpeAAAvhAAAA"
+    },
+    {
+      "id": "infinite-tst-diagram-53",
+      "patternId": "infinite-tst",
+      "sourceId": "four-infinite-tst",
+      "sourceUrl": "https://four.lol/methods/tspin-triple/",
+      "sourceLocator": "Fumen component, zero-based index 53",
+      "fumen": "v115@dfF8DeF8DeF8DeF8DeF8DeF8DeF8DeF8DeF8DeF8De?F8DeF8BehlF8CeglF8JeAgHCgAtHeBtHeAtIewhAehlFewh?BeglFewhAeQ4glFewhAeR4FeglBeQ4FeglIehlReAAAggww?IexwHeww5eAAA+gwwIexwHewwbeAAAvhAAAAXghlIeglFeh?0AeglFeg0BewhFeg0BewhIewhIewhZeAAArgwwHexwIewwu?eAAAJhwwHexwIewwQeAAAvhAAAACgAtHeBtHeAtIewhAehl?FewhBeglFewhAeQ4glFewhAeR4FeglBeQ4FeglIehlReAAA?"
+    },
+    {
+      "id": "six-three-diagram-3",
+      "patternId": "six-three",
+      "sourceId": "four-mko",
+      "sourceUrl": "https://four.lol/openers/mko/",
+      "sourceLocator": "Fumen component, zero-based index 3",
+      "fumen": "v115@agg0Ieg0DeilAeh0DeglQ4ywAtzhA8R4wwBtB8RpB8?Q4AeAtC8RpB8ywH8wwF8JeAgH"
+    },
+    {
+      "id": "six-three-diagram-4",
+      "patternId": "six-three",
+      "sourceId": "four-mko",
+      "sourceUrl": "https://four.lol/openers/mko/",
+      "sourceLocator": "Fumen component, zero-based index 4",
+      "fumen": "v115@VgwhIewhIewhCei0BeglwhQ4ywAtg0ilA8R4wwBtB8?RpB8Q4AeAtC8RpB8ywH8wwF8JeAgH"
+    },
+    {
+      "id": "six-three-diagram-5",
+      "patternId": "six-three",
+      "sourceId": "four-mko",
+      "sourceUrl": "https://four.lol/openers/mko/",
+      "sourceLocator": "Fumen component, zero-based index 5",
+      "fumen": "v115@lgRpBeilCeRpAewhglQ4ywAti0whA8R4wwBtB8g0wh?B8Q4AeAtC8AewhB8ywH8wwF8JeAgHNhxwBei0CexwAeQ4Be?whAeAtDeQ4JeAgH"
+    },
+    {
+      "id": "lst-diagram-3",
+      "patternId": "lst",
+      "sourceId": "four-lst",
+      "sourceUrl": "https://four.lol/stacking/lst/",
+      "sourceLocator": "Fumen component, zero-based index 3",
+      "fumen": "v115@FfglIeglIehlHeQ4CeAtE8R4AeBtE8glQ4AeAtg0E8?glCeg0E8hlAeh0E8Q4CeAtE8R4AeBtE8glQ4AeAtg0E8glC?eg0E8hlAeh0E8Q4CeAtE8R4AeBtF8Q4AeAtF8JeAgH"
+    },
+    {
+      "id": "lst-diagram-5",
+      "patternId": "lst",
+      "sourceId": "four-lst",
+      "sourceUrl": "https://four.lol/stacking/lst/",
+      "sourceLocator": "Fumen component, zero-based index 5",
+      "fumen": "v115@pgQpIeQpIeRpHeA8CeH8AeI8AeG8JeAgHIhywHewwa?eAAAvhAAAA"
+    },
+    {
+      "id": "lst-diagram-6",
+      "patternId": "lst",
+      "sourceId": "four-lst",
+      "sourceUrl": "https://four.lol/stacking/lst/",
+      "sourceLocator": "Fumen component, zero-based index 6",
+      "fumen": "v115@9gQpIeQpIeRpHeB8AeG8JeAgHBhVpDeVpCeWpTeAAA?"
+    },
+    {
+      "id": "lst-diagram-7",
+      "patternId": "lst",
+      "sourceId": "four-lst",
+      "sourceUrl": "https://four.lol/stacking/lst/",
+      "sourceLocator": "Fumen component, zero-based index 7",
+      "fumen": "v115@9gQpCeWpCeXpAeWpB8AeG8JeAgHpgglIehlIeglveA?AAIhywHewwaeAAA"
+    },
+    {
+      "id": "lst-diagram-8",
+      "patternId": "lst",
+      "sourceId": "four-lst",
+      "sourceUrl": "https://four.lol/stacking/lst/",
+      "sourceLocator": "Fumen component, zero-based index 8",
+      "fumen": "v115@9gglIehlHeQpglBeVpB8AeG8JeAgHBhllCemlCeglZ?eAAA"
+    }
+  ]
+}

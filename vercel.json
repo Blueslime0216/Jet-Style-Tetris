@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "bash scripts/build-vercel.sh",
+  "functions": {
+    "api/server.js": {
+      "maxDuration": 300,
+      "includeFiles": "{web/**,config/**,knowledge/raw/**,rust/engine-host/target/release/style-engine-host}"
+    }
+  },
+  "rewrites": [{ "source": "/(.*)", "destination": "/api/server" }]
+}

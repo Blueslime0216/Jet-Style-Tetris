@@ -1,0 +1,209 @@
+{
+  "schemaVersion": 1,
+  "knowledgeVersion": "2026-09-18.2",
+  "coordinateSystem": "10 columns, zero-based from left; rows bottom-up",
+  "provenance": "Well coordinates and masks are mathematical encodings of the source definitions, not claimed played positions. LST occupancy pages are exact source diagram decodings.",
+  "wellProfiles": [
+    {
+      "id": "six-three",
+      "sourceIds": [
+        "tec-stacking-guide"
+      ],
+      "wellColumn": 6,
+      "mirrorWellColumn": 3,
+      "leftColumns": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "rightColumns": [
+        7,
+        8,
+        9
+      ],
+      "rowExceptWellMask": "XXXXXX_XXX",
+      "mirrorRowExceptWellMask": "XXX_XXXXXX"
+    },
+    {
+      "id": "nine-zero",
+      "sourceIds": [
+        "tec-stacking-guide"
+      ],
+      "wellColumn": 9,
+      "mirrorWellColumn": 0,
+      "leftColumns": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "rightColumns": [],
+      "rowExceptWellMask": "XXXXXXXXX_",
+      "mirrorRowExceptWellMask": "_XXXXXXXXX"
+    }
+  ],
+  "featureContract": {
+    "wellObstruction": "Count newly occupied preferred-well cells after simulation; do not penalize the I cells of a completed clear. Existing garbage may require changing the usable base or abandoning the well.",
+    "sideRoughness": "Sum absolute adjacent column-height differences separately within leftColumns and rightColumns. Exclude edges crossing the reserved well.",
+    "sideBalance": "For an interior well, compare left/right stack heights as a soft cost, excluding the well. No universal numeric threshold is claimed.",
+    "quadReady": "Require four contiguous rows each exactly matching rowExceptWellMask, an accessible I placement, and an engine simulation that clears four lines. The mask alone is insufficient.",
+    "tSpinOpportunity": "Use reachable rotation paths and engine spin classification at the surface; neither a center well nor equal side heights proves a T-spin.",
+    "holeCost": "Evaluate actual buried empty cells separately; intentional spin cavities must be validated before treating them as useful.",
+    "commitment": "Well-preserving goals are soft style choices; survival, hard constraints and a verified current plan retain priority."
+  },
+  "lstPhases": [
+    {
+      "diagramId": "lst-diagram-5",
+      "sourceId": "four-lst",
+      "pages": [
+        {
+          "sourcePageIndex": 0,
+          "occupiedRowsBottomUp": [
+            "XX_XXXXXXX",
+            "XX_XXXXXXX",
+            "X___XXXXXX",
+            "XX________",
+            "X_________",
+            "X_________"
+          ]
+        },
+        {
+          "sourcePageIndex": 1,
+          "occupiedRowsBottomUp": [
+            "XX_XXXXXXX",
+            "XXXXXXXXXX",
+            "XXXXXXXXXX",
+            "XX________",
+            "X_________",
+            "X_________"
+          ]
+        },
+        {
+          "sourcePageIndex": 2,
+          "occupiedRowsBottomUp": [
+            "XX_XXXXXXX",
+            "XX________",
+            "X_________",
+            "X_________"
+          ]
+        }
+      ],
+      "interpretation": "L/J-overhang phase: page0 before T, page1 T-color filled, page2 after clear.",
+      "runtimeEnabled": false
+    },
+    {
+      "diagramId": "lst-diagram-6",
+      "sourceId": "four-lst",
+      "pages": [
+        {
+          "sourcePageIndex": 0,
+          "occupiedRowsBottomUp": [
+            "XX_XXXXXXX",
+            "XX________",
+            "X_________",
+            "X_________"
+          ]
+        },
+        {
+          "sourcePageIndex": 1,
+          "occupiedRowsBottomUp": [
+            "XX_XXXXXXX",
+            "XX_XXXXXXX",
+            "X___XXXXXX",
+            "X___XXXXXX"
+          ]
+        }
+      ],
+      "interpretation": "Refill phase after first TSD.",
+      "runtimeEnabled": false
+    },
+    {
+      "diagramId": "lst-diagram-7",
+      "sourceId": "four-lst",
+      "pages": [
+        {
+          "sourcePageIndex": 0,
+          "occupiedRowsBottomUp": [
+            "XX_XXXXXXX",
+            "XX_XXXXXXX",
+            "X___XXXXXX",
+            "X___XXXXXX"
+          ]
+        },
+        {
+          "sourcePageIndex": 1,
+          "occupiedRowsBottomUp": [
+            "XX_XXXXXXX",
+            "XX_XXXXXXX",
+            "X___XXXXXX",
+            "XX__XXXXXX",
+            "XX________",
+            "X_________"
+          ]
+        },
+        {
+          "sourcePageIndex": 2,
+          "occupiedRowsBottomUp": [
+            "XX_XXXXXXX",
+            "XXXXXXXXXX",
+            "XXXXXXXXXX",
+            "XX__XXXXXX",
+            "XX________",
+            "X_________"
+          ]
+        }
+      ],
+      "interpretation": "S/Z-overhang phase with construction and T-color filled page.",
+      "runtimeEnabled": false
+    },
+    {
+      "diagramId": "lst-diagram-8",
+      "sourceId": "four-lst",
+      "pages": [
+        {
+          "sourcePageIndex": 0,
+          "occupiedRowsBottomUp": [
+            "XX_XXXXXXX",
+            "XX__XXXXXX",
+            "XX________",
+            "X_________"
+          ]
+        },
+        {
+          "sourcePageIndex": 1,
+          "occupiedRowsBottomUp": [
+            "XX_XXXXXXX",
+            "XX_XXXXXXX",
+            "XX_XXXXXXX",
+            "X___XXXXXX"
+          ]
+        }
+      ],
+      "interpretation": "Refill phase after second TSD.",
+      "runtimeEnabled": false
+    }
+  ],
+  "diagramAnnotations": [
+    {
+      "diagramId": "lst-diagram-2",
+      "role": "ST-stacking-comparison",
+      "runtimeTargetAllowed": false,
+      "note": "Preserved original diagram from LST article; it illustrates ST, not an LST target."
+    },
+    {
+      "diagramId": "six-three-diagram-5",
+      "role": "MKO-to-mirrored-interior-well-continuation",
+      "mirrorForDefaultX6": true,
+      "note": "Do not require the preferred well to be empty during every T-spin construction phase."
+    }
+  ],
+  "executionStatus": "No runtime routes enabled by surface definitions; all placements require target-engine verification."
+}

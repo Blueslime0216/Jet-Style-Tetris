@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:style-agent:knowledge:catalog:1",
+  "title": "Offline research catalog",
+  "type": "object",
+  "required": ["schemaVersion", "knowledgeVersion", "researchedAt", "runtimePolicy", "terms", "patterns"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "knowledgeVersion": { "type": "string" },
+    "researchedAt": { "type": "string", "format": "date" },
+    "runtimePolicy": { "type": "string" },
+    "terms": { "type": "array", "items": { "$ref": "#/$defs/term" } },
+    "patterns": { "type": "array", "items": { "$ref": "#/$defs/pattern" } }
+  },
+  "$defs": {
+    "strings": { "type": "array", "items": { "type": "string" } },
+    "term": {
+      "type": "object",
+      "required": ["id", "name", "definition", "sourceIds", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" }, "name": { "type": "string" },
+        "definition": { "type": "string" }, "sourceIds": { "$ref": "#/$defs/strings", "minItems": 1 },
+        "status": { "enum": ["documented", "unresolved"] }
+      }
+    },
+    "pattern": {
+      "type": "object",
+      "required": ["id", "name", "category", "aliases", "summary", "sourceIds", "rules", "goals", "continuations", "triggerGeometry", "geometryTemplates", "executable", "verification", "successRate"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" }, "name": { "type": "string" },
+        "category": { "enum": ["opener", "midgame", "loop", "stacking", "meme"] },
+        "aliases": { "$ref": "#/$defs/strings" }, "summary": { "type": "string" },
+        "sourceIds": { "$ref": "#/$defs/strings", "minItems": 1 },
+        "rules": {
+          "type": "object", "additionalProperties": false,
+          "required": ["boardWidth", "requirements", "attackTable", "rotationVariant"],
+          "properties": {
+            "boardWidth": { "const": 10 }, "requirements": { "$ref": "#/$defs/strings" },
+            "attackTable": { "const": "adapter-defined" }, "rotationVariant": { "type": "string" }
+          }
+        },
+        "goals": { "$ref": "#/$defs/strings" }, "continuations": { "$ref": "#/$defs/strings" },
+        "triggerGeometry": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "object", "additionalProperties": false, "required": ["description", "exactFixture"], "properties": { "description": { "type": "string" }, "exactFixture": { "type": "string" } } }
+          ]
+        },
+        "geometryTemplates": { "$ref": "#/$defs/strings" }, "executable": { "const": false },
+        "successRate": { "type": "null" },
+        "verification": {
+          "type": "object", "additionalProperties": false,
+          "required": ["status", "reachability", "queueCompatibility", "notes"],
+          "properties": {
+            "status": { "enum": ["decoded-source", "documented-concept", "unresolved-terminology"] },
+            "reachability": { "const": "not-tested" }, "queueCompatibility": { "const": "not-tested" },
+            "notes": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

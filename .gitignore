@@ -1,0 +1,15 @@
+
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+**/target/
+_dev/tmp/
+.DS_Store
+var/
+# Local planning conversations, user attachments, and operator evidence are private.
+_dev/
+.vercel/
+# Local DevKit guide references the private planning folder.
+AGENTS.md

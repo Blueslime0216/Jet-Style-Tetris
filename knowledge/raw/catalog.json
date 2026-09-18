@@ -1,0 +1,1172 @@
+{
+  "schemaVersion": 1,
+  "knowledgeVersion": "2026-09-18.2",
+  "researchedAt": "2026-09-18",
+  "runtimePolicy": "offline-static-read-only; executable requires target-engine validation",
+  "terms": [
+    {
+      "id": "pc",
+      "name": "Perfect Clear (PC)",
+      "definition": "A line clear leaves no occupied cells on the board. PC opportunity must be proven by a complete reachable continuation.",
+      "sourceIds": [
+        "four-pco",
+        "solution-finder"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "tss",
+      "name": "T-Spin Single (TSS)",
+      "definition": "A recognized T-spin clears one line. A mini single must remain distinguishable from a full single in rules and constraints.",
+      "sourceIds": [
+        "basic-tspins"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "tsd",
+      "name": "T-Spin Double (TSD)",
+      "definition": "A recognized T-spin clears two lines. Geometry alone does not prove the last action was a qualifying rotation.",
+      "sourceIds": [
+        "basic-tspins"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "tst",
+      "name": "T-Spin Triple (TST)",
+      "definition": "A recognized T-spin clears three lines; requires the appropriate reachable kick path.",
+      "sourceIds": [
+        "four-infinite-tst"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "opener",
+      "name": "Opener",
+      "definition": "A planned early-game structure whose availability depends on queue, hold, rules and interference.",
+      "sourceIds": [
+        "four-tki",
+        "four-pco"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "midgame",
+      "name": "Midgame setup",
+      "definition": "A technique fitted to the current terrain, not necessarily a memorized empty-board opening.",
+      "sourceIds": [
+        "four-stsd"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "donation",
+      "name": "Donation",
+      "definition": "Build and clear a spin above an underlying structure while preserving useful lower terrain.",
+      "sourceIds": [
+        "four-kaidan",
+        "four-stmb"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "b2b",
+      "name": "Back-to-back (B2B)",
+      "definition": "A chain of ruleset-defined difficult clears. Which clears preserve or break it and its attack bonus are adapter data.",
+      "sourceIds": [
+        "tetrio-developer",
+        "mechanical-heart-guide"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "all-spin",
+      "name": "All-spin",
+      "definition": "Rules recognize spins by non-T pieces; detection, mini handling and B2B rewards vary. It is not implied by SRS rotation.",
+      "sourceIds": [
+        "mechanical-heart-guide",
+        "tetrio-developer"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "srs",
+      "name": "SRS",
+      "definition": "Rotation orientations and kick rules. Use the actual engine table; 180-degree kicks are an extra versioned capability.",
+      "sourceIds": [
+        "tetrio-developer",
+        "fumen-decoder"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "7-bag",
+      "name": "7-bag",
+      "definition": "A bag contains one of each I/O/T/J/L/S/Z; permutations and held leftovers affect opener and loop compatibility.",
+      "sourceIds": [
+        "four-dpc",
+        "four-tki"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "hold",
+      "name": "Hold",
+      "definition": "An engine-validated piece swap/store operation. Queue plans must track held piece and whether hold is available.",
+      "sourceIds": [
+        "four-pco"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "fumen",
+      "name": "Fumen",
+      "definition": "Encoded diagram pages containing field, optional operation and flags. Pages can contain edited fields or alternatives; a sequence of pages is not necessarily a replay.",
+      "sourceIds": [
+        "fumen-decoder",
+        "hachispin-original"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "downstack",
+      "name": "Downstack",
+      "definition": "Clear or uncover lower terrain, including garbage, while controlling the amount of new stack above it.",
+      "sourceIds": [
+        "stacking-guide"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "hole",
+      "name": "Hole",
+      "definition": "For this project: an empty cell below an occupied cell in the same column; geometric feature, not proof of inaccessibility.",
+      "sourceIds": [
+        "stacking-guide"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "overhang",
+      "name": "Overhang",
+      "definition": "Occupied cells above a cavity; useful for spin construction but can obstruct cleanup.",
+      "sourceIds": [
+        "four-infinite-tst",
+        "four-stmb"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "stacking-6-3",
+      "name": "6-3 Stacking",
+      "definition": "Six columns of stack on the left, a one-column interior well at x=6 (zero-based), and three columns on the right. Mirroring gives a 3-6 layout with well x=3. Distinct from 9-0 and LST.",
+      "sourceIds": [
+        "tec-stacking-guide",
+        "four-mko"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "four-wide",
+      "name": "4-wide",
+      "definition": "A four-column-wide combo well with residual blocks; distinct from the one-column well in 6-3 or 9-0 stacking.",
+      "sourceIds": [
+        "four-dt-cannon",
+        "stacking-guide"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "loop",
+      "name": "Loop",
+      "definition": "A route that can return to a usable structural or bag state. The label alone does not guarantee indefinite queue coverage.",
+      "sourceIds": [
+        "four-dpc",
+        "four-infinite-tst"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "washing-machine",
+      "name": "Washing Machine",
+      "definition": "A visual repeated-rotation stunt, not a standardized attack award. Geometry and lock/rotation rules must be validated.",
+      "sourceIds": [
+        "washing-machine-demo"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "among-us",
+      "name": "Among Us",
+      "definition": "Crewmate-shaped block art/meme build; no standardized attack award.",
+      "sourceIds": [
+        "among-us-demo"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "mechanical-heart",
+      "name": "Mechanical Hearts",
+      "definition": "All-spin loop family; requires non-T spin rewards for its intended B2B strategy.",
+      "sourceIds": [
+        "mechanical-heart-guide"
+      ],
+      "status": "documented"
+    },
+    {
+      "id": "stacking-9-0",
+      "name": "9-0 Stacking / Side well",
+      "definition": "Nine columns of stack left of a one-column right-edge well (x=9). Mirroring gives a left-edge well (x=0), strictly the 0-9 layout.",
+      "sourceIds": [
+        "tec-stacking-guide"
+      ],
+      "status": "documented"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "tki",
+      "name": "TKI / 開幕TSD",
+      "category": "opener",
+      "aliases": [
+        "TKI 3",
+        "개막TSD",
+        "TKI-3"
+      ],
+      "summary": "First-bag TSD family; variants support different follow-ups.",
+      "sourceIds": [
+        "four-tki"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "7-bag",
+          "hold",
+          "T-spin recognition"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "TSD"
+      ],
+      "continuations": [
+        "lst",
+        "stsd",
+        "freestyle"
+      ],
+      "triggerGeometry": null,
+      "geometryTemplates": [
+        "tki-diagram-0",
+        "tki-diagram-1",
+        "tki-diagram-2"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Early I is a heuristic, not a complete queue filter. Japanese TKI can mean C-Spin; preserve the ambiguity."
+      },
+      "successRate": null
+    },
+    {
+      "id": "pco",
+      "name": "Perfect Clear Opener",
+      "category": "opener",
+      "aliases": [
+        "PCO",
+        "퍼클 오프너"
+      ],
+      "summary": "Build a low opening shape, then solve the remaining area to leave an empty board.",
+      "sourceIds": [
+        "four-pco"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "7-bag",
+          "hold"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "PC"
+      ],
+      "continuations": [
+        "dpc",
+        "kaidan",
+        "freestyle"
+      ],
+      "triggerGeometry": null,
+      "geometryTemplates": [
+        "pco-diagram-0",
+        "pco-diagram-1"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Holding I and queue visibility affect the available solution. A PC is only true after simulating the full continuation; no universal success percentage is stored."
+      },
+      "successRate": null
+    },
+    {
+      "id": "dt-cannon",
+      "name": "DT Cannon",
+      "category": "opener",
+      "aliases": [
+        "DT포",
+        "DT砲"
+      ],
+      "summary": "TSD followed by TST; also usable from compatible midgame terrain.",
+      "sourceIds": [
+        "four-dt-cannon"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "7-bag for opener",
+          "hold",
+          "T-spin recognition"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "TSD",
+        "TST"
+      ],
+      "continuations": [
+        "c-spin",
+        "infinite-tst",
+        "freestyle"
+      ],
+      "triggerGeometry": null,
+      "geometryTemplates": [
+        "dt-cannon-diagram-0",
+        "dt-cannon-diagram-3",
+        "dt-cannon-diagram-4",
+        "dt-cannon-diagram-6"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Early L/S or J/L and J/Z variants are documented. Exact order and hold feasibility need search."
+      },
+      "successRate": null
+    },
+    {
+      "id": "albatross",
+      "name": "Albatross",
+      "category": "opener",
+      "aliases": [
+        "알바트로스",
+        "アルバトロスSP"
+      ],
+      "summary": "Floating TSD opener with TST and TSD continuations.",
+      "sourceIds": [
+        "four-albatross"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "7-bag",
+          "hold",
+          "T-spin recognition"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "TSD",
+        "TST",
+        "TSD"
+      ],
+      "continuations": [
+        "freestyle"
+      ],
+      "triggerGeometry": null,
+      "geometryTemplates": [
+        "albatross-diagram-0",
+        "albatross-diagram-1"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Early O helps. Soft drops may be required; a completed diagram does not prove the current queue can build it."
+      },
+      "successRate": null
+    },
+    {
+      "id": "mko",
+      "name": "MKO Stacking",
+      "category": "opener",
+      "aliases": [
+        "MKO",
+        "MKO積み"
+      ],
+      "summary": "Initial shape branches toward a PC or TSD continuation.",
+      "sourceIds": [
+        "four-mko"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "7-bag",
+          "hold",
+          "T-spin recognition"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "PC_OR_TSD"
+      ],
+      "continuations": [
+        "lst",
+        "kaidan",
+        "freestyle"
+      ],
+      "triggerGeometry": null,
+      "geometryTemplates": [
+        "mko-diagram-0",
+        "mko-diagram-1"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Early J and L are a heuristic; the first T-spin overhang often borrows a piece from the next bag."
+      },
+      "successRate": null
+    },
+    {
+      "id": "hachispin",
+      "name": "Hachispin",
+      "category": "opener",
+      "aliases": [
+        "にはち砲",
+        "하치스핀"
+      ],
+      "summary": "TSS then TST with a possible PC continuation.",
+      "sourceIds": [
+        "four-hachispin",
+        "hachispin-original"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "7-bag",
+          "hold",
+          "T-spin recognition"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "TSS",
+        "TST",
+        "PC_OPTIONAL"
+      ],
+      "continuations": [
+        "dpc",
+        "freestyle"
+      ],
+      "triggerGeometry": null,
+      "geometryTemplates": [
+        "hachispin-diagram-1",
+        "hachispin-original"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Incompatible with forbidTSS while following the documented route. Original creator Fumen includes 14 continuous opening operations, then additional examples; never concatenate unrelated pages."
+      },
+      "successRate": null
+    },
+    {
+      "id": "sdpc",
+      "name": "Single Double PC",
+      "category": "opener",
+      "aliases": [
+        "SDPC",
+        "SDパフェ"
+      ],
+      "summary": "TSS then TSD, optionally another TSS, before a PC attempt.",
+      "sourceIds": [
+        "four-sdpc"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "7-bag",
+          "hold",
+          "T-spin recognition"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "TSS",
+        "TSD",
+        "PC_OPTIONAL"
+      ],
+      "continuations": [
+        "dpc",
+        "freestyle"
+      ],
+      "triggerGeometry": null,
+      "geometryTemplates": [
+        "sdpc-diagram-0"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Incompatible with forbidTSS on the documented route. A known setup is not an assured PC under incoming garbage."
+      },
+      "successRate": null
+    },
+    {
+      "id": "stsd",
+      "name": "Super T-Spin Double",
+      "category": "midgame",
+      "aliases": [
+        "STSD",
+        "슈퍼 T스핀 더블"
+      ],
+      "summary": "Two TSDs from a connected setup.",
+      "sourceIds": [
+        "four-stsd"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "T-spin recognition"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "TSD",
+        "TSD"
+      ],
+      "continuations": [
+        "freestyle"
+      ],
+      "triggerGeometry": {
+        "description": "Look for a three-column, three-row cavity; J/L can provide a base.",
+        "exactFixture": "stsd-diagram-0"
+      },
+      "geometryTemplates": [
+        "stsd-diagram-0",
+        "stsd-diagram-1"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Pattern construction and terminal spin must be simulated."
+      },
+      "successRate": null
+    },
+    {
+      "id": "fractal",
+      "name": "Fractal",
+      "category": "midgame",
+      "aliases": [
+        "Double Dagger",
+        "더블 대거",
+        "ダブルダガー"
+      ],
+      "summary": "Two vertically related TSD opportunities.",
+      "sourceIds": [
+        "four-fractal"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "T-spin recognition"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "TSD",
+        "TSD"
+      ],
+      "continuations": [
+        "lst",
+        "freestyle"
+      ],
+      "triggerGeometry": {
+        "description": "Existing TSD and room for another overhang above it.",
+        "exactFixture": "fractal-diagram-0"
+      },
+      "geometryTemplates": [
+        "fractal-diagram-0",
+        "fractal-diagram-1"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Can extend an existing TSD while waiting for a T. Wrong-side overhangs matter."
+      },
+      "successRate": null
+    },
+    {
+      "id": "c-spin",
+      "name": "C-Spin / Triple Double",
+      "category": "midgame",
+      "aliases": [
+        "TD",
+        "TKI (Japanese usage)"
+      ],
+      "summary": "A J/L-built triple-double setup: TST followed by TSD.",
+      "sourceIds": [
+        "four-c-spin"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "T-spin recognition"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "TST",
+        "TSD"
+      ],
+      "continuations": [
+        "freestyle"
+      ],
+      "triggerGeometry": {
+        "description": "A notch supports the characteristic J/L structure.",
+        "exactFixture": "c-spin-diagram-17"
+      },
+      "geometryTemplates": [
+        "c-spin-diagram-17"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "TD is a wider family; only the J/L C-shaped construction is specifically C-Spin."
+      },
+      "successRate": null
+    },
+    {
+      "id": "kaidan",
+      "name": "Kaidan",
+      "category": "midgame",
+      "aliases": [
+        "계단",
+        "階段積み",
+        "donation"
+      ],
+      "summary": "Stair-shaped TSD donation using S or Z to form the slot.",
+      "sourceIds": [
+        "four-kaidan"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "T-spin recognition"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "TSD"
+      ],
+      "continuations": [
+        "freestyle"
+      ],
+      "triggerGeometry": {
+        "description": "Stair surface for an S/Z prop and reachable T slot.",
+        "exactFixture": "kaidan-diagram-0"
+      },
+      "geometryTemplates": [
+        "kaidan-diagram-0"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Stairs can appear away from a board edge."
+      },
+      "successRate": null
+    },
+    {
+      "id": "stmb",
+      "name": "STMB Cave",
+      "category": "midgame",
+      "aliases": [
+        "STMB",
+        "STMBケイブ"
+      ],
+      "summary": "Floating TSD formed over a three-column gap.",
+      "sourceIds": [
+        "four-stmb"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "T-spin recognition"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "TSD"
+      ],
+      "continuations": [
+        "fractal",
+        "freestyle"
+      ],
+      "triggerGeometry": {
+        "description": "Two equal-height supports separated by a three-column gap.",
+        "exactFixture": "stmb-diagram-0"
+      },
+      "geometryTemplates": [
+        "stmb-diagram-0"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Do not label every S/Z donation STMB; match the source geometry."
+      },
+      "successRate": null
+    },
+    {
+      "id": "lst",
+      "name": "LST Stacking",
+      "category": "stacking",
+      "aliases": [
+        "LST"
+      ],
+      "summary": "Alternate L/J and S/Z overhang phases with TSD clears and refill the other stack; exact local geometry matters.",
+      "sourceIds": [
+        "four-lst"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "T-spin recognition"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "REPEATED_TSD"
+      ],
+      "continuations": [
+        "fractal",
+        "freestyle"
+      ],
+      "triggerGeometry": {
+        "description": "Use source step 1 pre-spin occupancy and subsequent refill phases; a low side column alone is not LST.",
+        "exactFixture": "lst-diagram-5"
+      },
+      "geometryTemplates": [
+        "lst-diagram-0",
+        "lst-diagram-3",
+        "lst-diagram-5",
+        "lst-diagram-6",
+        "lst-diagram-7",
+        "lst-diagram-8"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Distinct from 6-3, 9-0 and ST stacking. lst-diagram-2 is the source page ST comparison and is excluded from LST templates. Source phase colors annotate regions; they are not literal piece IDs or a queue."
+      },
+      "successRate": null
+    },
+    {
+      "id": "dpc",
+      "name": "DPC",
+      "category": "loop",
+      "aliases": [
+        "3巡パフェ後テンプレ"
+      ],
+      "summary": "After an eight-line PC consumes twenty pieces, use the leftover piece to form TSD then PC and recover a fresh bag.",
+      "sourceIds": [
+        "four-dpc"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "7-bag",
+          "hold",
+          "known bag residue",
+          "T-spin recognition"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "TSD",
+        "PC",
+        "BAG_RESET"
+      ],
+      "continuations": [
+        "pco",
+        "hachispin",
+        "sdpc"
+      ],
+      "triggerGeometry": null,
+      "geometryTemplates": [
+        "dpc-diagram-0",
+        "dpc-diagram-1"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Loop depends on empty board, exact bag residue and a solved branch; no infinite guarantee."
+      },
+      "successRate": null
+    },
+    {
+      "id": "infinite-tst",
+      "name": "Infinite TST",
+      "category": "loop",
+      "aliases": [
+        "무한 TST",
+        "TST loop"
+      ],
+      "summary": "Repeat TST structures, often entered after DT Cannon in Ultra.",
+      "sourceIds": [
+        "four-infinite-tst"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "T-spin recognition"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "REPEATED_TST"
+      ],
+      "continuations": [
+        "freestyle"
+      ],
+      "triggerGeometry": null,
+      "geometryTemplates": [
+        "infinite-tst-diagram-53"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Historical name does not guarantee an arbitrary queue, survival or garbage handling."
+      },
+      "successRate": null
+    },
+    {
+      "id": "mechanical-heart",
+      "name": "Mechanical Hearts",
+      "category": "loop",
+      "aliases": [
+        "Mechanical Heart",
+        "Mechanical All-Spin",
+        "All-Spin Factory"
+      ],
+      "summary": "Repeated all-spin structures use non-T spin clears together with T-spins.",
+      "sourceIds": [
+        "mechanical-heart-guide"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics",
+          "non-T spin recognition",
+          "non-T spin clears preserve B2B",
+          "explicit 180-kick rules for branches that use 180"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "ALL_SPIN_LOOP"
+      ],
+      "continuations": [
+        "freestyle"
+      ],
+      "triggerGeometry": null,
+      "geometryTemplates": [],
+      "executable": false,
+      "verification": {
+        "status": "documented-concept",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Different from Mechanical TSD and LST stacking. Disabled in a T-spin-only profile. No attack rate or success rate imported."
+      },
+      "successRate": null
+    },
+    {
+      "id": "washing-machine",
+      "name": "Washing Machine",
+      "category": "meme",
+      "aliases": [
+        "세탁기"
+      ],
+      "summary": "Showmanship built around repeatedly rotating a piece near an isolated floating cell.",
+      "sourceIds": [
+        "washing-machine-demo"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "verified floating-cell geometry",
+          "verified rotation cycle",
+          "execution timing and lock-reset policy"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "VISUAL_ROTATION_CYCLE"
+      ],
+      "continuations": [
+        "freestyle"
+      ],
+      "triggerGeometry": null,
+      "geometryTemplates": [],
+      "executable": false,
+      "verification": {
+        "status": "documented-concept",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Primary demonstration located; canonical coordinates and target-engine cycle unverified. This is not an attack or a special spin scoring category."
+      },
+      "successRate": null
+    },
+    {
+      "id": "among-us",
+      "name": "Among Us",
+      "category": "meme",
+      "aliases": [
+        "Amongus",
+        "Amogus",
+        "어몽어스"
+      ],
+      "summary": "Stack blocks into the recognizable crewmate silhouette as a visual joke.",
+      "sourceIds": [
+        "among-us-demo"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "verified silhouette geometry",
+          "ordinary reachable placements"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "VISUAL_SILHOUETTE"
+      ],
+      "continuations": [
+        "freestyle"
+      ],
+      "triggerGeometry": null,
+      "geometryTemplates": [],
+      "executable": false,
+      "verification": {
+        "status": "documented-concept",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Player demonstration found; no canonical Fumen branch imported. PC shown later in a video is not evidence that the silhouette guarantees a PC."
+      },
+      "successRate": null
+    },
+    {
+      "id": "six-three",
+      "name": "6-3 Stacking",
+      "category": "stacking",
+      "aliases": [
+        "6-3",
+        "sixThreeStacking"
+      ],
+      "summary": "Maintain an interior one-column well with six stack columns on one side and three on the other.",
+      "sourceIds": [
+        "tec-stacking-guide",
+        "four-mko"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "ordinary reachable placements",
+          "line-clear semantics"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "INTERIOR_WELL",
+        "CLEAN_STACK",
+        "TETRIS_OPPORTUNITY",
+        "TSPIN_OPPORTUNITY"
+      ],
+      "continuations": [
+        "freestyle",
+        "stsd",
+        "fractal"
+      ],
+      "triggerGeometry": {
+        "description": "Default well x=6 with left columns 0..5 and right 7..9; source continuation example is mirrored toward x=3.",
+        "exactFixture": "six-three-diagram-5"
+      },
+      "geometryTemplates": [
+        "six-three-diagram-3",
+        "six-three-diagram-4",
+        "six-three-diagram-5"
+      ],
+      "executable": false,
+      "verification": {
+        "status": "decoded-source",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "User corrected earlier 4-3 wording to 6-3 on 2026-09-18. Fixed interior well and side well are separate preferences. Source diagrams depict intermediate T-spin construction, not a full-height empty well invariant."
+      },
+      "successRate": null
+    },
+    {
+      "id": "nine-zero",
+      "name": "9-0 Stacking",
+      "category": "stacking",
+      "aliases": [
+        "9-0",
+        "side well",
+        "edge well"
+      ],
+      "summary": "Maintain a one-column edge well and stack the remaining nine columns.",
+      "sourceIds": [
+        "tec-stacking-guide"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "ordinary reachable placements",
+          "line-clear semantics"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "EDGE_WELL",
+        "CLEAN_STACK",
+        "TETRIS_OPPORTUNITY"
+      ],
+      "continuations": [
+        "freestyle"
+      ],
+      "triggerGeometry": null,
+      "geometryTemplates": [],
+      "executable": false,
+      "verification": {
+        "status": "documented-concept",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Default right-edge well x=9; mirror x=0 is 0-9. Not an alias of 6-3. Named surface goals are soft preferences, not proof that a quad or spin exists."
+      },
+      "successRate": null
+    },
+    {
+      "id": "freestyle",
+      "name": "Freestyle / Downstack",
+      "category": "stacking",
+      "aliases": [
+        "프리스타일",
+        "다운스택"
+      ],
+      "summary": "Use ordinary legal placements to improve the stack or uncover and clear buried garbage.",
+      "sourceIds": [
+        "stacking-guide"
+      ],
+      "rules": {
+        "boardWidth": 10,
+        "requirements": [
+          "SRS-compatible placement reachability",
+          "line-clear semantics"
+        ],
+        "attackTable": "adapter-defined",
+        "rotationVariant": "must-match-engine"
+      },
+      "goals": [
+        "SURVIVAL",
+        "GARBAGE_CLEAR"
+      ],
+      "continuations": [],
+      "triggerGeometry": null,
+      "geometryTemplates": [],
+      "executable": false,
+      "verification": {
+        "status": "documented-concept",
+        "reachability": "not-tested",
+        "queueCompatibility": "not-tested",
+        "notes": "Not a fixed geometry template; evaluate actual holes, height and cleared garbage in code."
+      },
+      "successRate": null
+    }
+  ]
+}
