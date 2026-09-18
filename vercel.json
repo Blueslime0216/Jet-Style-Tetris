@@ -7,5 +7,46 @@
       "includeFiles": "{web/**,config/**,knowledge/raw/**,rust/engine-host/target/release/style-engine-host}"
     }
   },
-  "rewrites": [{ "source": "/(.*)", "destination": "/api/server" }]
+  "rewrites": [
+    {
+      "source": "/api/bootstrap",
+      "destination": "/api/server"
+    },
+    {
+      "source": "/api/style",
+      "destination": "/api/server"
+    },
+    {
+      "source": "/play",
+      "destination": "/api/server"
+    },
+    {
+      "source": "/health",
+      "destination": "/api/server"
+    }
+  ],
+  "outputDirectory": "web",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'"
+        }
+      ]
+    }
+  ]
 }

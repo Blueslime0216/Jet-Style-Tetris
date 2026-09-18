@@ -4,7 +4,7 @@
 
 Target: https://jet-style-tetris.vercel.app
 
-1. Import `Blueslime0216/Jet-Style-Tetris` into Vercel. Use **Other** as the framework, keep the repository build command, and leave Output Directory unset.
+1. Import `Blueslime0216/Jet-Style-Tetris` into Vercel. Use **Other** as the framework, keep the repository build command, and keep the repository Output Directory (`web`). Do not set it to `public`.
 2. Keep **Fluid Compute** enabled. `api/server.js` exports the Node HTTP/WebSocket server; `vercel.json` gives it a 300-second duration and bundles the native engine.
 3. Set the following environment variables, then deploy:
 
@@ -20,6 +20,8 @@ Target: https://jet-style-tetris.vercel.app
 | `PUBLIC_ORIGIN`            | Optional for a custom domain. The production Vercel hostname is detected automatically.         |
 
 Never use a browser-exposed environment-variable prefix for these secrets. Redis is required for **paid provider calls** on Vercel. Without it, the server refuses upstream calls, labels decisions as fallback, and keeps preset gameplay available. Quota reservations are atomic across instances; connection-local limits are additional safeguards, not a global quota.
+
+The `web` directory is served as static frontend assets. Only `/api/bootstrap`, `/api/style`, `/play`, and `/health` are rewritten to the server function.
 
 ### Build and lifecycle
 
