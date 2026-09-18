@@ -364,6 +364,7 @@ function openSocket() {
   });
   ws.addEventListener("close", () => {
     text("connection-state", "연결 끊김");
+    text("live-label", "연결 종료");
     setPlaying(false);
     $("start").disabled = true;
     held.clear();
