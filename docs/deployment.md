@@ -19,6 +19,8 @@ Target: https://jet-style-tetris.vercel.app
 | `DAILY_API_CALL_LIMIT`     | Default 2,000 combined provider requests per UTC day; maximum 10,000.                           |
 | `PUBLIC_ORIGIN`            | Optional for a custom domain. The production Vercel hostname is detected automatically.         |
 
+Vercel Marketplace may inject `KV_REST_API_URL` and `KV_REST_API_TOKEN`; the server accepts this pair automatically. A read-only token cannot update quota counters.
+
 Never use a browser-exposed environment-variable prefix for these secrets. Redis is required for **paid provider calls** on Vercel. Without it, the server refuses upstream calls, labels decisions as fallback, and keeps preset gameplay available. Quota reservations are atomic across instances; connection-local limits are additional safeguards, not a global quota.
 
 The `web` directory is served as static frontend assets. Only `/api/bootstrap`, `/api/style`, `/play`, and `/health` are rewritten to the server function.

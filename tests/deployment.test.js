@@ -38,3 +38,29 @@ test("Vercel quota fails closed without Redis and respects shared limits", async
   assert.equal(calls, 0);
   assert.equal(budget.active, 0);
 });
+
+test("Vercel Marketplace KV REST credentials enforce the same shared quota", async () => {
+  let calls = 0;
+  const reserve = sharedQuota(
+    {
+      KV_REST_API_URL: "https://example.upstash.io",
+      KV_REST_API_TOKEN: "write-test",
+    },
+    async (url, options) => {
+      assert.equal(String(url), "https://example.upstash.io/");
+      assert.equal(options.headers.Authorization, "Bearer write-test");
+      assert.equal(JSON.parse(options.body)[0], "EVAL");
+      calls++;
+      return new Response(JSON.stringify({ result: 0 }));
+    },
+  );
+  await reserve(2000, 120);
+  assert.equal(calls, 1);
+  await assert.rejects(
+    sharedQuota({
+      KV_REST_API_URL: "https://example.upstash.io",
+      KV_REST_API_READ_ONLY_TOKEN: "read-only",
+    })(2000, 120),
+    { code: "shared_budget_not_configured" },
+  );
+});

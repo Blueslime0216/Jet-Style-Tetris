@@ -3,8 +3,9 @@ import { ProviderError, fetchJSON } from "../adapters/providers.js";
 // Atomic across Vercel instances. No provider calls when shared quota is unavailable.
 export function sharedQuota(cfg, fetcher = fetch) {
   return async (limit, perMinute) => {
-    const url = cfg.UPSTASH_REDIS_REST_URL,
-      token = cfg.UPSTASH_REDIS_REST_TOKEN;
+    const primary = cfg.UPSTASH_REDIS_REST_URL && cfg.UPSTASH_REDIS_REST_TOKEN;
+    const url = primary ? cfg.UPSTASH_REDIS_REST_URL : cfg.KV_REST_API_URL,
+      token = primary ? cfg.UPSTASH_REDIS_REST_TOKEN : cfg.KV_REST_API_TOKEN;
     if (!url || !token) throw new ProviderError("shared_budget_not_configured");
     const endpoint = new URL(url);
     if (

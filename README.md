@@ -42,7 +42,7 @@ npm run tbp                  # Tetris Bot Protocol over stdin/stdout
 
 Import this repository with **Framework Preset: Other** and **Fluid Compute enabled**. The repository includes the build command, a 300-second WebSocket function, and the native engine bundle configuration.
 
-Set `SESSION_SECRET` to a random secret of at least 32 characters. For live AI, add the two provider keys and connect Upstash Redis using `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`. Redis enforces a shared API request budget across function instances. If it is missing or unavailable, paid provider calls are blocked and gameplay falls back safely.
+Set `SESSION_SECRET` to a random secret of at least 32 characters. For live AI, add the two provider keys and connect Upstash Redis using `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`. The Marketplace aliases `KV_REST_API_URL` and `KV_REST_API_TOKEN` are also supported. Redis enforces a shared API request budget across function instances. If it is missing or unavailable, paid provider calls are blocked and gameplay falls back safely.
 
 See [deployment instructions](docs/deployment.md) for all variables and limitations. Vercel WebSockets are currently a beta feature; a production deployment still needs a smoke test after import.
 

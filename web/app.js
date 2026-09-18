@@ -556,7 +556,11 @@ $("replay-file").onchange = async () => {
 };
 window.addEventListener("resize", () => renderState(lastState));
 try {
-  bootstrap = await (await fetch("/api/bootstrap")).json();
+  const response = await fetch("/api/bootstrap", { cache: "no-store" });
+  if (!response.ok) throw new Error(`서버 응답 ${response.status}`);
+  bootstrap = await response.json();
+  if (!Array.isArray(bootstrap.presets) || !bootstrap.branding)
+    throw new Error("서버 초기 설정 형식이 올바르지 않습니다.");
   styles = [
     structuredClone(bootstrap.presets[0]),
     structuredClone(bootstrap.presets[0]),
@@ -581,7 +585,15 @@ try {
   });
   renderControls();
   renderState(null);
+  $("apply").disabled = false;
   openSocket();
-} catch {
-  announce("서버에 연결하지 못했습니다. 새로고침해 주세요.", true);
+} catch (error) {
+  console.error("Page initialization failed:", error);
+  text("connection-state", "초기화 실패");
+  $("start").disabled = true;
+  $("apply").disabled = true;
+  announce(
+    `초기 설정을 불러오지 못했습니다. ${error.message} 새로고침해 주세요.`,
+    true,
+  );
 }
