@@ -126,7 +126,7 @@ function renderState(state, paused = false) {
     if (s) {
       text("lines-" + side, `${s.lines} LINES`);
       text("hold-" + side, `HOLD ${s.hold ?? "·"}`);
-      text("next-" + side, `NEXT ${s.next.slice(0, 5).join(" ")}`);
+      text("next-" + side, `NEXT ${s.next.join(" ")}`);
       text("garbage-" + side, s.garbage);
       const overlay = $("overlay-" + side);
       overlay.hidden = !s.gameOver && !paused;
