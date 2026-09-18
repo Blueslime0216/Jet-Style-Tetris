@@ -109,113 +109,122 @@ function csrf(req, s) {
     timingSafeEqual(Buffer.from(token), Buffer.from(s.csrf))
   );
 }
-const server = http.createServer(async (req, res) => {
-  const ip = req.socket.remoteAddress ?? "unknown";
-  try {
-    if (!hosts.has(req.headers.host) || !rate(ip + ":http", 600)) {
-      send(res, 429, { error: "요청을 잠시 쉬어 주세요." });
-      return;
-    }
-    const url = new URL(req.url, publicOrigin);
-    if (req.method === "GET" && url.pathname === "/health") {
-      send(res, 200, { ok: true });
-      return;
-    }
-    if (req.method === "GET" && url.pathname === "/api/bootstrap") {
-      let s = session(req);
-      if (!s) {
-        if (sessions.size >= 200) {
-          send(res, 503, { error: "서버가 혼잡합니다." });
+const server = http.createServer(
+  { maxHeaderSize: 64 * 1024 },
+  async (req, res) => {
+    const ip = req.socket.remoteAddress ?? "unknown";
+    try {
+      if (!hosts.has(req.headers.host) || !rate(ip + ":http", 600)) {
+        send(res, 429, { error: "요청을 잠시 쉬어 주세요." });
+        return;
+      }
+      const url = new URL(req.url, publicOrigin);
+      if (req.method === "GET" && url.pathname === "/health") {
+        send(res, 200, { ok: true });
+        return;
+      }
+      if (req.method === "GET" && url.pathname === "/api/bootstrap") {
+        let s = session(req);
+        if (!s) {
+          if (sessions.size >= 200) {
+            send(res, 503, { error: "서버가 혼잡합니다." });
+            return;
+          }
+          s = sessionStore.issue();
+        }
+        const current = config();
+        send(
+          res,
+          200,
+          {
+            branding,
+            presets: PRESETS,
+            csrf: s.csrf,
+            providers: {
+              jev: !!current.JEV_API_KEY,
+              gemini: !!current.GEMINI_API_KEY,
+            },
+            limits: { maxSeconds: 240 },
+            notices: ["기본 룰: Guideline, All-Spin 미지원"],
+          },
+          {
+            "Set-Cookie": `session=${s.token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=1800${publicOrigin.startsWith("https:") ? "; Secure" : ""}`,
+          },
+        );
+        return;
+      }
+      if (req.method === "POST" && url.pathname === "/api/style") {
+        const s = session(req);
+        if (!s || !sameOrigin(req) || !csrf(req, s)) {
+          send(res, 403, { error: "세션을 새로고침해 주세요." });
           return;
         }
-        s = sessionStore.issue();
-      }
-      const current = config();
-      send(
-        res,
-        200,
-        {
-          branding,
-          presets: PRESETS,
-          csrf: s.csrf,
-          providers: {
-            jev: !!current.JEV_API_KEY,
-            gemini: !!current.GEMINI_API_KEY,
-          },
-          limits: { maxSeconds: 240 },
-          notices: ["기본 룰: Guideline, All-Spin 미지원"],
-        },
-        {
-          "Set-Cookie": `session=${s.token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=1800${publicOrigin.startsWith("https:") ? "; Secure" : ""}`,
-        },
-      );
-      return;
-    }
-    if (req.method === "POST" && url.pathname === "/api/style") {
-      const s = session(req);
-      if (!s || !sameOrigin(req) || !csrf(req, s)) {
-        send(res, 403, { error: "세션을 새로고침해 주세요." });
+        if (!rate(s.id + ":style", 5) || !rate(ip + ":style", 15)) {
+          send(res, 429, {
+            error: "스타일 변환은 잠시 후 다시 시도해 주세요.",
+          });
+          return;
+        }
+        const data = await body(req);
+        if (Object.keys(data).some((k) => k !== "text")) {
+          send(res, 400, { error: "잘못된 요청입니다." });
+          return;
+        }
+        try {
+          const profile = await compiler.compile(data.text);
+          send(res, 200, { profile, source: "gemini" });
+        } catch (e) {
+          send(res, e.code === "invalid_input" ? 400 : 503, {
+            error:
+              e.code === "key_missing"
+                ? "Gemini 연결이 준비되지 않았습니다. 프리셋을 선택해 주세요."
+                : "스타일 변환에 실패했습니다. 기존 스타일을 유지합니다. 반복되면 프리셋을 사용해 주세요.",
+            code: e.code ?? "compile_failed",
+          });
+        }
         return;
       }
-      if (!rate(s.id + ":style", 5) || !rate(ip + ":style", 15)) {
-        send(res, 429, { error: "스타일 변환은 잠시 후 다시 시도해 주세요." });
+      if (req.method !== "GET") {
+        send(res, 405, { error: "Method not allowed" });
         return;
       }
-      const data = await body(req);
-      if (Object.keys(data).some((k) => k !== "text")) {
-        send(res, 400, { error: "잘못된 요청입니다." });
+      const path = decodeURIComponent(url.pathname);
+      if (
+        path.includes("\0") ||
+        path.split("/").some((p) => p.startsWith("."))
+      ) {
+        send(res, 404, { error: "Not found" });
         return;
       }
-      try {
-        const profile = await compiler.compile(data.text);
-        send(res, 200, { profile, source: "gemini" });
-      } catch (e) {
-        send(res, e.code === "invalid_input" ? 400 : 503, {
-          error:
-            e.code === "key_missing"
-              ? "Gemini 연결이 준비되지 않았습니다. 프리셋을 선택해 주세요."
-              : "스타일 변환에 실패했습니다. 기존 스타일을 유지합니다. 반복되면 프리셋을 사용해 주세요.",
-          code: e.code ?? "compile_failed",
-        });
+      const file = resolve(root, "." + (path === "/" ? "/index.html" : path));
+      if (!file.startsWith(root + sep)) {
+        send(res, 404, { error: "Not found" });
+        return;
       }
-      return;
+      const mime = {
+        ".html": "text/html; charset=utf-8",
+        ".js": "text/javascript; charset=utf-8",
+        ".css": "text/css; charset=utf-8",
+        ".svg": "image/svg+xml",
+        ".woff2": "font/woff2",
+      }[extname(file)];
+      if (!mime || !(await stat(file)).isFile()) {
+        send(res, 404, { error: "Not found" });
+        return;
+      }
+      res.writeHead(200, { ...header, "Content-Type": mime });
+      res.end(await readFile(file));
+    } catch {
+      if (!res.headersSent)
+        send(res, 400, { error: "요청을 처리할 수 없습니다." });
+      else res.end();
     }
-    if (req.method !== "GET") {
-      send(res, 405, { error: "Method not allowed" });
-      return;
-    }
-    const path = decodeURIComponent(url.pathname);
-    if (path.includes("\0") || path.split("/").some((p) => p.startsWith("."))) {
-      send(res, 404, { error: "Not found" });
-      return;
-    }
-    const file = resolve(root, "." + (path === "/" ? "/index.html" : path));
-    if (!file.startsWith(root + sep)) {
-      send(res, 404, { error: "Not found" });
-      return;
-    }
-    const mime = {
-      ".html": "text/html; charset=utf-8",
-      ".js": "text/javascript; charset=utf-8",
-      ".css": "text/css; charset=utf-8",
-      ".svg": "image/svg+xml",
-      ".woff2": "font/woff2",
-    }[extname(file)];
-    if (!mime || !(await stat(file)).isFile()) {
-      send(res, 404, { error: "Not found" });
-      return;
-    }
-    res.writeHead(200, { ...header, "Content-Type": mime });
-    res.end(await readFile(file));
-  } catch {
-    if (!res.headersSent)
-      send(res, 400, { error: "요청을 처리할 수 없습니다." });
-    else res.end();
-  }
-});
+  },
+);
 server.requestTimeout = 15000;
 server.headersTimeout = 10000;
-server.maxHeadersCount = 50;
+// Allow browser and proxy metadata while keeping explicit header bounds.
+server.maxHeadersCount = 128;
 const wss = new WebSocketServer({
   noServer: true,
   maxPayload: 16384,
