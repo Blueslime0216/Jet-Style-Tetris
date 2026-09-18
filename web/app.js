@@ -186,7 +186,7 @@ function showInspector() {
     const row = document.createElement("div");
     row.className = "candidate" + (option.id === d.choice ? " chosen" : "");
     const left = document.createElement("span");
-    left.textContent = `${option.piece} · 열 ${option.x + 1} · ${option.rotation * 90}°${option.pc ? " · PC" : option.lines ? " · " + option.lines + "L" : ""}`;
+    left.textContent = `${option.piece} · 열 ${option.column ?? option.x + 1} · ${option.rotation * 90}°${option.pc ? " · PC" : option.lines ? " · " + option.lines + "L" : ""}`;
     const right = document.createElement("span");
     right.className = "probability";
     right.textContent =
@@ -339,9 +339,11 @@ function renderStats(statsBySeat) {
   for (const seat of [0, 1]) {
     const stats = statsBySeat?.[seat];
     const action = stats?.lastClear;
-    const spin = action?.match(/TSpin.*lines: ([123])/);
+    const spin = action?.match(/TSpin.*lines: ([0123])/);
     const label = spin
-      ? `T-SPIN ${[null, "SINGLE", "DOUBLE", "TRIPLE"][Number(spin[1])]}`
+      ? spin[1] === "0"
+        ? `T-SPIN${action.includes("Mini") ? " MINI" : ""}`
+        : `T-SPIN ${[null, "SINGLE", "DOUBLE", "TRIPLE"][Number(spin[1])]}`
       : action;
     text(
       "clear-" + (seat === 0 ? "a" : "b"),

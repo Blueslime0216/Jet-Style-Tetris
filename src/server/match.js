@@ -41,6 +41,9 @@ export function publicDecision(d) {
         id: c.id,
         piece: c.piece,
         x: c.x,
+        column: c.cells?.length
+          ? Math.min(...c.cells.map(([x]) => x)) + 1
+          : c.x + 1,
         rotation: c.rotation,
         lines: c.lines,
         spin: c.spin,
