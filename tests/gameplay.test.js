@@ -224,3 +224,50 @@ test("animated commands replay to the exact final state and recorded clear stats
     match.end();
   }
 });
+
+test("build follow-up goals advance only after the corresponding clear is executed", async () => {
+  const engine = new EngineHost();
+  try {
+    let view = await engine.send({ op: "init", seed: 107 });
+    const provider = {
+      choose: async (state, candidates, layer) => {
+        const chosen =
+          layer === "strategy"
+            ? candidates.find((c) => c.id === "opener")
+            : layer === "plan"
+              ? candidates.find((c) => c.id.includes("hachispin"))
+              : null;
+        if (!chosen) throw Error("offline");
+        return {
+          choice: chosen.id,
+          source: "fixture",
+          probabilities: {},
+          latencyMs: 0,
+        };
+      },
+    };
+    const agent = new StyleAgent(DEFAULT_STYLE, 107, provider);
+    const goals = [];
+    for (let i = 0; i < 14; i++) {
+      const d = await agent.decide(engine, view, 0);
+      const out = await engine.send({
+        op: "place",
+        seat: 0,
+        lock: view.locks[0],
+        candidate: d.candidate.id,
+      });
+      view = out.state;
+      agent.committed();
+      if (
+        out.events.some(
+          (e) => e.type === "score" && /^TSpin.*lines: [123]/.test(e.action),
+        )
+      )
+        goals.push(agent.followupGoal);
+    }
+    assert.deepEqual(goals, ["tst", "pc"]);
+    assert.equal(view.seats[0].lines, 4);
+  } finally {
+    engine.close();
+  }
+});

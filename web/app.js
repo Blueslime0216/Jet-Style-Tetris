@@ -155,7 +155,15 @@ function showInspector() {
       text(id, "");
     return;
   }
-  text("plan-name", d.plan.name);
+  text(
+    "plan-name",
+    d.plan.name +
+      (d.plan.phase === "preparation"
+        ? " · 준비"
+        : d.plan.phase === "activation"
+          ? " · 발동"
+          : ""),
+  );
   text(
     "plan-progress",
     `진행 ${d.plan.step} / ${d.plan.total} · 실행 대기 ${d.delayMs} ms`,

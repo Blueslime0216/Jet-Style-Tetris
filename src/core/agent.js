@@ -138,6 +138,7 @@ export class StyleAgent {
     this.style = style;
     this.plan = null;
     this.followupGoal = null;
+    this.buildGoals = [];
   }
   async select(state, candidates, layer, rank) {
     try {
@@ -180,11 +181,6 @@ export class StyleAgent {
     };
     const traces = [];
     this.recovery = null;
-    if (this.plan?.strategy === "opener" && this.plan.step >= this.plan.horizon)
-      this.followupGoal =
-        this.plan.phase === "activation"
-          ? this.plan.followups?.[0]
-          : this.plan.goal;
 
     const next = this.plan?.route?.[this.plan.step];
     let reason = !this.plan ? "initial" : null;
@@ -417,6 +413,12 @@ export class StyleAgent {
         });
         const found = matchingPlans.find((p) => p.id === pd.choice);
         this.plan = { ...found, step: 0, horizon: found.route.length };
+        if (found.strategy === "opener") {
+          this.buildGoals = [found.goal, ...(found.followups ?? [])].filter(
+            (g) => ["pc", "tss", "tsd", "tst"].includes(g),
+          );
+          this.followupGoal = this.buildGoals[0];
+        }
       }
     }
     if (this.plan?.route) {
@@ -470,6 +472,7 @@ export class StyleAgent {
     );
     const chosen = candidates.find((c) => c.id === decision.choice);
     traces.push({ ...decision, layer: "placement", candidates: compact });
+    this.lastPlacement = chosen;
     this.decisions++;
     const probs = Object.values(decision.probabilities);
     const uncertainty = probs.length ? 1 - Math.max(...probs) : 0;
@@ -498,6 +501,17 @@ export class StyleAgent {
     };
   }
   committed() {
+    const c = this.lastPlacement;
+    const goal = c?.pc
+      ? "pc"
+      : c?.spin !== "none"
+        ? { 1: "tss", 2: "tsd", 3: "tst" }[c?.lines]
+        : null;
+    if (goal && this.buildGoals?.[0] === goal) {
+      this.buildGoals.shift();
+      this.followupGoal = this.buildGoals[0] ?? null;
+    }
+    this.lastPlacement = null;
     if (this.plan) this.plan.step++;
   }
 }

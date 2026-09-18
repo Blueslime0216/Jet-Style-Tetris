@@ -74,7 +74,8 @@
         }
       ],
       "source": "https://hse30.tistory.com/91",
-      "requiresTSS": true
+      "requiresTSS": true,
+      "followups": ["tst"]
     },
     {
       "id": "hachispin-source-first-two-bags-stage-2",
@@ -167,7 +168,8 @@
         }
       ],
       "source": "https://hse30.tistory.com/91",
-      "requiresTSS": true
+      "requiresTSS": true,
+      "followups": ["pc"]
     }
   ]
 }
