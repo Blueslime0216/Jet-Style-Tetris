@@ -332,7 +332,7 @@ function openSocket() {
     const m = JSON.parse(event.data);
     if (m.type === "state" || m.type === "ended") {
       inspectors = m.inspectors;
-      renderState(m.state, m.paused);
+      renderState(m.state, m.type !== "ended" && m.paused);
       showInspector();
       text(
         "live-label",
