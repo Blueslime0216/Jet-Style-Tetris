@@ -11,7 +11,11 @@ export class EngineHost {
   constructor() {
     this.pending = [];
     this.closed = false;
-    this.child = spawn(binary, [], { stdio: ["pipe", "pipe", "pipe"] });
+    this.child = spawn(binary, [], {
+      stdio: ["pipe", "pipe", "pipe"],
+      env: {},
+    });
+    this.child.stdin.on("error", () => this.fail());
     this.error = "";
     this.child.stderr.on("data", (d) => {
       this.error = (this.error + d.toString()).slice(-1000);

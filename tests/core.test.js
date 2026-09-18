@@ -286,3 +286,14 @@ test("PC and T-spin fixtures are legal and no-TSS filters real engine outcomes",
     engine.close();
   }
 });
+
+test("native engine termination rejects pending work without crashing the server", async () => {
+  const engine = new EngineHost();
+  await engine.send({ op: "init", seed: 42 });
+  const exited = new Promise((resolve) => engine.child.once("exit", resolve));
+  const pending = engine.send({ op: "candidates", seat: 0 });
+  engine.child.kill("SIGKILL");
+  await Promise.allSettled([pending]);
+  await exited;
+  await assert.rejects(engine.send({ op: "snapshot" }), /Engine closed/);
+});
